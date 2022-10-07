@@ -1,3 +1,29 @@
+# Wordle clone with React Typescript
+
+It's another Wordle clone! Or it will be...
+This is a practise project to help me learn React with Typescript and TDD using Jest.
+
+## Game Rules
+
+Guess the word in 6 tries.
+
+- Each guess must be a valid 5-letter word.
+- The color of the tiles will change to show how close your guess was to the word.
+
+A grid of 5 columns and 6 rows will be rendered. You will be able to enter letters from left to right into the active row. The active row order will be from top to bottom.
+
+### UI Behaviour
+
+- When a letter is in the word and in the correct spot it will display a green background.
+- When a letter is in the word but in the wrong spot it will display a yellow background.
+- When a letter is not in the word a grey background will be displayed.
+
+### Other
+
+Wordle: https://www.nytimes.com/games/wordle/index.html
+
+The game has a virtual keyboard on the website which is used for handling game inputs, but this is not strictly necessary.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
