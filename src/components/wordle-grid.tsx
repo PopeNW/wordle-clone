@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const StyledGridContainer = styled.div`
@@ -9,27 +9,40 @@ const StyledGrid = styled.div`
   display: grid;
 `;
 
-interface IProps {
+const StyledRow = styled.div`
+  grid: row;
+`;
+
+interface ITile {
   children: string;
 }
 
-const Tile = ({ children }: IProps) => {
+interface IRow {
+  rowState: string[];
+}
+
+const Tile = ({ children }: ITile) => {
   return <div>{children}</div>;
 };
 
-const Row = (): React.ReactElement[] => {
-  const rowStateArray = ["", "", "", "", ""];
-  return rowStateArray.map((tileContent, i) => (
-    <Tile key={i}>{tileContent}</Tile>
-  ));
+const Row = ({ rowState }: IRow) => {
+  return (
+    <StyledRow>
+      {rowState.map((tileContent, i) => (
+        <Tile key={i}>{tileContent}</Tile>
+      ))}
+    </StyledRow>
+  );
 };
 
 const WordleGrid = () => {
+  const [row, setRow] = useState(["1", "2", "3", "4", "5"]);
+
   return (
     <StyledGridContainer>
       <StyledGrid>
         <p>Wordle grid</p>
-        {/* <Row /> */}
+        <Row rowState={row} />
       </StyledGrid>
     </StyledGridContainer>
   );
