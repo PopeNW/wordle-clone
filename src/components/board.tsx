@@ -29,7 +29,7 @@ const StyledRow = styled.div`
   justify-content: center;
 `;
 
-const StyledCell = styled.div`
+const StyledTile = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,7 +51,7 @@ const Tile = ({ children }: ITile) => {
     setState(children);
   }, [children]);
 
-  return <StyledCell>{state}</StyledCell>;
+  return <StyledTile>{state}</StyledTile>;
 };
 
 const Row = ({ row }: IRow) => {
