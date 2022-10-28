@@ -1,18 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-type RowState = [string, string, string, string, string];
-
-type BoardState = [RowState, RowState, RowState, RowState, RowState, RowState];
-
-interface ITile {
-  children: string;
-}
-
-interface IRow {
-  row: RowState;
-}
-
 const StyledGridContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -44,7 +32,7 @@ const StyledTile = styled.div`
   font-weight: bold;
 `;
 
-const Tile = ({ children }: ITile) => {
+const Tile = ({ children }: IBoardTile) => {
   const [state, setState] = useState<string>();
 
   useEffect(() => {
@@ -54,7 +42,7 @@ const Tile = ({ children }: ITile) => {
   return <StyledTile>{state}</StyledTile>;
 };
 
-const Row = ({ row }: IRow) => {
+const Row = ({ row }: IBoardRow) => {
   return (
     <StyledRow>
       {row.map((cell, index) => (

@@ -38,10 +38,6 @@ const StyledKey = styled.button`
   cursor: pointer;
 `;
 
-interface IKeyboardRow {
-  row: string[];
-}
-
 const Row = ({ row }: IKeyboardRow) => {
   return (
     <StyledRow>

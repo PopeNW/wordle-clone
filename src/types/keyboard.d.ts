@@ -1,0 +1,3 @@
+interface IKeyboardRow {
+  row: string[];
+}
