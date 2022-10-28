@@ -5,7 +5,7 @@ type RowState = [string, string, string, string, string];
 
 type GridState = [RowState, RowState, RowState, RowState, RowState, RowState];
 
-interface ICell {
+interface ITile {
   children: string;
 }
 
@@ -44,7 +44,7 @@ const StyledCell = styled.div`
   font-weight: bold;
 `;
 
-const Cell = ({ children }: ICell) => {
+const Tile = ({ children }: ITile) => {
   const [state, setState] = useState<string>();
 
   useEffect(() => {
@@ -58,13 +58,13 @@ const Row = ({ row }: IRow) => {
   return (
     <StyledRow>
       {row.map((cell, index) => (
-        <Cell key={index}>{cell}</Cell>
+        <Tile key={index}>{cell}</Tile>
       ))}
     </StyledRow>
   );
 };
 
-const WordleGrid = () => {
+const Board = () => {
   const grid: GridState = [
     ["G", "O", "O", "S", "E"],
     ["", "", "", "", ""],
@@ -85,4 +85,4 @@ const WordleGrid = () => {
   );
 };
 
-export default WordleGrid;
+export default Board;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Keyboard from "./components/keyboard";
-import WordleGrid from "./components/wordle-grid";
+import Board from "./components/board";
 
 const StyledApp = styled.div`
   display: block;
@@ -24,7 +24,7 @@ const App = () => {
       <StyledHeader>
         <StyledTitle>It's Another Wordle Clone! 🤪</StyledTitle>
       </StyledHeader>
-      <WordleGrid />
+      <Board />
       <Keyboard />
     </StyledApp>
   );

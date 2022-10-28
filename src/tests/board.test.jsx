@@ -1,8 +1,8 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import WordleGrid from "../components/wordle-grid";
+import Board from "../components/board";
 
-test("renders a wordle grid", () => {
-  render(<WordleGrid />);
+test("renders board", () => {
+  render(<Board />);
   // TODO: Determine how to render a wordle grid and write a test
 });
