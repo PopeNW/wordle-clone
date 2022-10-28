@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 type RowState = [string, string, string, string, string];
 
-type GridState = [RowState, RowState, RowState, RowState, RowState, RowState];
+type BoardState = [RowState, RowState, RowState, RowState, RowState, RowState];
 
 interface ITile {
   children: string;
@@ -65,7 +65,7 @@ const Row = ({ row }: IRow) => {
 };
 
 const Board = () => {
-  const grid: GridState = [
+  const grid: BoardState = [
     ["G", "O", "O", "S", "E"],
     ["", "", "", "", ""],
     ["", "", "", "", ""],
