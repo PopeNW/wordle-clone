@@ -4,8 +4,6 @@ import styled from "styled-components";
 const StyledKeyboardContainer = styled.div`
   display: flex;
   justify-content: center;
-
-  margin-top: 1rem;
 `;
 
 const StyledGrid = styled.div`
@@ -32,7 +30,7 @@ const StyledKey = styled.button`
 
   background-color: lightgrey;
 
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: bold;
 
   cursor: pointer;

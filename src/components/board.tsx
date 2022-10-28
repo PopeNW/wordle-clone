@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const StyledGridContainer = styled.div`
+const StyledBoardContainer = styled.div`
   display: flex;
   justify-content: center;
 
-  margin-top: 2rem;
+  margin: 1.7rem 0;
 `;
 
 const StyledGrid = styled.div`
@@ -22,8 +22,8 @@ const StyledTile = styled.div`
   align-items: center;
   justify-content: center;
 
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 3.7rem;
+  height: 3.7rem;
   margin: 0.2rem;
 
   border: 0.1rem solid grey;
@@ -63,13 +63,13 @@ const Board = () => {
   ];
 
   return (
-    <StyledGridContainer>
+    <StyledBoardContainer>
       <StyledGrid>
         {grid.map((row, index) => (
           <Row key={index} row={row} />
         ))}
       </StyledGrid>
-    </StyledGridContainer>
+    </StyledBoardContainer>
   );
 };
 
