@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Keyboard from "./components/keyboard";
 import WordleGrid from "./components/wordle-grid";
 
 const StyledApp = styled.div`
@@ -24,6 +25,7 @@ const App = () => {
         <StyledTitle>It's Another Wordle Clone! 🤪</StyledTitle>
       </StyledHeader>
       <WordleGrid />
+      <Keyboard />
     </StyledApp>
   );
 };
