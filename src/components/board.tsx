@@ -32,39 +32,32 @@ const StyledTile = styled.div`
   font-weight: bold;
 `;
 
-const Tile = ({ children }: IBoardTile) => {
-  const [state, setState] = useState<string>();
-
-  useEffect(() => {
-    setState(children);
-  }, [children]);
-
-  return <StyledTile>{state}</StyledTile>;
-};
-
 const Row = ({ row }: IBoardRow) => {
   return (
     <StyledRow>
       {row.map((cell, index) => (
-        <Tile key={index}>{cell}</Tile>
+        <StyledTile key={index}>{cell}</StyledTile>
       ))}
     </StyledRow>
   );
 };
 
-interface IBoard {
-  selectedKey: string | null;
-}
-
 const Board = ({ selectedKey }: IBoard) => {
-  const grid: BoardState = [
-    ["G", "O", "O", "S", "E"],
+  const [grid, setGrid] = useState<BoardState>([
     ["", "", "", "", ""],
     ["", "", "", "", ""],
     ["", "", "", "", ""],
     ["", "", "", "", ""],
     ["", "", "", "", ""],
-  ];
+    ["", "", "", "", ""],
+  ]);
+
+  // Console log warns update depth exceeded. See browser.
+  // useEffect(() => {
+  //   const newGrid: BoardState = [...grid];
+  //   newGrid[0][0] = selectedKey;
+  //   setGrid(newGrid);
+  // }, [grid, selectedKey]);
 
   return (
     <StyledBoardContainer>

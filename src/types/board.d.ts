@@ -9,3 +9,7 @@ interface IBoardTile {
 interface IBoardRow {
   row: RowState;
 }
+
+interface IBoard {
+  selectedKey: string;
+}

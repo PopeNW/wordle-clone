@@ -1,7 +1,7 @@
+import { useState } from "react";
 import styled from "styled-components";
 import Keyboard from "./components/keyboard";
 import Board from "./components/board";
-import { useEffect, useState } from "react";
 
 const StyledApp = styled.div`
   display: block;
@@ -19,11 +19,7 @@ const StyledTitle = styled.h1`
 `;
 
 const App = () => {
-  const [selectedKey, setSelectedKey] = useState(null);
-
-  useEffect(() => {
-    console.log(selectedKey);
-  }, [selectedKey]);
+  const [selectedKey, setSelectedKey] = useState("");
 
   return (
     <StyledApp>
