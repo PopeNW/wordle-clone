@@ -52,7 +52,11 @@ const Row = ({ row }: IBoardRow) => {
   );
 };
 
-const Board = () => {
+interface IBoard {
+  selectedKey: string | null;
+}
+
+const Board = ({ selectedKey }: IBoard) => {
   const grid: BoardState = [
     ["G", "O", "O", "S", "E"],
     ["", "", "", "", ""],

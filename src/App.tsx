@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Keyboard from "./components/keyboard";
 import Board from "./components/board";
+import { useEffect, useState } from "react";
 
 const StyledApp = styled.div`
   display: block;
@@ -18,13 +19,19 @@ const StyledTitle = styled.h1`
 `;
 
 const App = () => {
+  const [selectedKey, setSelectedKey] = useState(null);
+
+  useEffect(() => {
+    console.log(selectedKey);
+  }, [selectedKey]);
+
   return (
     <StyledApp>
       <StyledHeader>
         <StyledTitle>It's Another Wordle Clone! 🤪</StyledTitle>
       </StyledHeader>
-      <Board />
-      <Keyboard />
+      <Board selectedKey={selectedKey} />
+      <Keyboard setSelectedKey={setSelectedKey} />
     </StyledApp>
   );
 };

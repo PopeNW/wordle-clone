@@ -35,17 +35,19 @@ const StyledKey = styled.button`
   cursor: pointer;
 `;
 
-const Row = ({ row }: IKeyboardRow) => {
+const Row = ({ row, setSelectedKey }: IKeyboardRow) => {
   return (
     <StyledRow>
-      {row.map((key, i) => (
-        <StyledKey key={i}>{key}</StyledKey>
+      {row.map((keyText, index) => (
+        <StyledKey key={index} onClick={() => setSelectedKey(keyText)}>
+          {keyText}
+        </StyledKey>
       ))}
     </StyledRow>
   );
 };
 
-const Keyboard = () => {
+const Keyboard = ({ setSelectedKey }: IKeyboard) => {
   const keyboardText = [
     ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
     ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
@@ -55,8 +57,8 @@ const Keyboard = () => {
   return (
     <StyledKeyboardContainer>
       <StyledGrid>
-        {keyboardText.map((row, i) => (
-          <Row key={i} row={row} />
+        {keyboardText.map((row, index) => (
+          <Row key={index} row={row} setSelectedKey={setSelectedKey} />
         ))}
       </StyledGrid>
     </StyledKeyboardContainer>

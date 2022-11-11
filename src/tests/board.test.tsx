@@ -2,6 +2,6 @@ import { render } from "@testing-library/react";
 import Board from "../components/board";
 
 test("renders board", () => {
-  render(<Board />);
+  render(<Board selectedKey={null} />);
   // TODO: Determine how to render a wordle grid and write a test
 });
