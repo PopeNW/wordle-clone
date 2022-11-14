@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const StyledBoardContainer = styled.div`
@@ -42,23 +41,7 @@ const Row = ({ row }: IBoardRow) => {
   );
 };
 
-const Board = ({ selectedKey }: IBoard) => {
-  const [grid, setGrid] = useState<BoardState>([
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-  ]);
-
-  // Console log warns update depth exceeded. See browser.
-  // useEffect(() => {
-  //   const newGrid: BoardState = [...grid];
-  //   newGrid[0][0] = selectedKey;
-  //   setGrid(newGrid);
-  // }, [grid, selectedKey]);
-
+const Board = ({ grid }: IBoard) => {
   return (
     <StyledBoardContainer>
       <StyledGrid>

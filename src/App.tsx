@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Keyboard from "./components/keyboard";
 import Board from "./components/board";
@@ -20,13 +20,29 @@ const StyledTitle = styled.h1`
 
 const App = () => {
   const [selectedKey, setSelectedKey] = useState("");
+  const [grid, setGrid] = useState<BoardState>([
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+  ]);
+
+  useEffect(() => {
+    setGrid((g) => {
+      const newGrid: BoardState = [...g];
+      newGrid[0][0] = selectedKey;
+      return newGrid;
+    });
+  }, [selectedKey]);
 
   return (
     <StyledApp>
       <StyledHeader>
         <StyledTitle>It's Another Wordle Clone! 🤪</StyledTitle>
       </StyledHeader>
-      <Board selectedKey={selectedKey} />
+      <Board grid={grid} />
       <Keyboard setSelectedKey={setSelectedKey} />
     </StyledApp>
   );

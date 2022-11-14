@@ -11,5 +11,5 @@ interface IBoardRow {
 }
 
 interface IBoard {
-  selectedKey: string;
+  grid: BoardState;
 }
