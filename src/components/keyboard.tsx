@@ -48,7 +48,7 @@ const Row = ({ row, setSelectedKey }: IKeyboardRow) => {
 };
 
 const Keyboard = ({ setSelectedKey }: IKeyboard) => {
-  const keyboardText = [
+  const keyboardValues = [
     ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
     ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
     ["ENTER", "Z", "X", "C", "V", "B", "N", "M", "BACKSPACE"],
@@ -57,7 +57,7 @@ const Keyboard = ({ setSelectedKey }: IKeyboard) => {
   return (
     <StyledKeyboardContainer>
       <StyledGrid>
-        {keyboardText.map((row, index) => (
+        {keyboardValues.map((row, index) => (
           <Row key={index} row={row} setSelectedKey={setSelectedKey} />
         ))}
       </StyledGrid>

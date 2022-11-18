@@ -6,3 +6,5 @@ test("renders app title", () => {
   const titleElement = screen.getByText(/It's Another Wordle Clone! 🤪/i);
   expect(titleElement).toBeInTheDocument();
 });
+
+test("handle button click for alphabetical character", () => {});

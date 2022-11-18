@@ -1,0 +1,1 @@
+type GridPosition = [number, number];
