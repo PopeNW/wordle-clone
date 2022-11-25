@@ -1,1 +1,1 @@
-type GridPosition = [number, number];
+type BoardPosition = [number, number];

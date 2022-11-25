@@ -11,5 +11,5 @@ interface IBoardRow {
 }
 
 interface IBoard {
-  grid: BoardState;
+  boardState: BoardState;
 }

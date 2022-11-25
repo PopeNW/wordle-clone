@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import Board from "../components/board";
 
 test("renders board", () => {
-  const mockGrid: BoardState = [
+  const mockBoardState: BoardState = [
     ["1", "2", "3", "4", "5"],
     ["6", "7", "8", "9", "10"],
     ["11", "12", "13", "14", "15"],
@@ -11,9 +11,9 @@ test("renders board", () => {
     ["26", "27", "28", "29", "30"],
   ];
 
-  render(<Board grid={mockGrid} />);
+  render(<Board boardState={mockBoardState} />);
 
-  mockGrid.forEach((row) => {
+  mockBoardState.forEach((row) => {
     row.forEach((tile) => {
       const tileElement = screen.getByText(tile);
       expect(tileElement).toBeInTheDocument();

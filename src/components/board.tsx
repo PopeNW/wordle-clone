@@ -41,11 +41,11 @@ const Row = ({ row }: IBoardRow) => {
   );
 };
 
-const Board = ({ grid }: IBoard) => {
+const Board = ({ boardState }: IBoard) => {
   return (
     <StyledBoardContainer>
       <StyledGrid>
-        {grid.map((row, index) => (
+        {boardState.map((row, index) => (
           <Row key={index} row={row} />
         ))}
       </StyledGrid>

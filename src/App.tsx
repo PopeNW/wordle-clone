@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Keyboard from "./components/keyboard";
 import Board from "./components/board";
+import { KeyboardValues } from "./components/keyboard";
 
 const StyledApp = styled.div`
   display: block;
@@ -18,8 +19,21 @@ const StyledTitle = styled.h1`
   margin: 0 auto;
 `;
 
+/* 
+Change plan
+
+I want to only re-render when the grid state changes.
+
+Currently, the App re-renders anytime there is a button press.
+This is not working well.
+
+I want to create a clickHandler function which will be called 
+whenever I click a button, and update the grid state.
+
+*/
 const App = () => {
-  const [grid, setGrid] = useState<BoardState>([
+  const [boardPosition, setBoardPosition] = useState<BoardPosition>([0, 0]);
+  const [boardState, setBoardState] = useState<BoardState>([
     ["", "", "", "", ""],
     ["", "", "", "", ""],
     ["", "", "", "", ""],
@@ -27,58 +41,61 @@ const App = () => {
     ["", "", "", "", ""],
     ["", "", "", "", ""],
   ]);
-  const [selectedKey, setSelectedKey] = useState("");
-  const [, setGridPosition] = useState<GridPosition>([0, 0]);
 
-  useEffect(() => {
-    if (selectedKey === "BACKSPACE") {
-      // Clear current tile text and go back one column in row if able
-      setGridPosition((p) => {
-        setGrid((g) => {
-          const newGrid: BoardState = [...g];
-          newGrid[p[0]][p[1]] = "";
-
-          return newGrid;
-        });
-
-        if (p[1] > 0) {
-          return [p[0], p[1] - 1];
-        }
-
-        return p;
-      });
-    } else if (selectedKey === "ENTER") {
-      // Set final state for current row and move to the next row
-      setGridPosition((p) => [p[0] + 1, 0]);
-    } else if (selectedKey !== "") {
-      // Set the current tile text to selected key if it's not already set on the last column
-      setGridPosition((p) => {
-        setGrid((g) => {
-          const newGrid: BoardState = [...g];
-
-          if (newGrid[p[0]][p[1]] === "") {
-            newGrid[p[0]][p[1]] = selectedKey;
-          }
-
-          return newGrid;
-        });
-
-        if (p[1] < 4) {
-          return [p[0], p[1] + 1];
-        }
-
-        return p;
-      });
+  const clickHandler = (selectedKey: string) => {
+    if (selectedKey === KeyboardValues.ENTER) {
+      handleEnterKey();
+    } else if (selectedKey === KeyboardValues.BACKSPACE) {
+      handleBackspace();
+    } else {
+      handleAlphabeticalKey(selectedKey);
     }
-  }, [selectedKey]);
+  };
+
+  const handleAlphabeticalKey = (selectedKey: string) => {
+    if (boardState[boardPosition[0]][boardPosition[1]] === "") {
+      setBoardState(() => {
+        const newBoardState: BoardState = [...boardState];
+        newBoardState[boardPosition[0]][boardPosition[1]] = selectedKey;
+        return newBoardState;
+      });
+      if (boardPosition[1] < 4) {
+        setBoardPosition([boardPosition[0], boardPosition[1] + 1]);
+      }
+    }
+  };
+
+  const handleEnterKey = () => {
+    if (boardState[boardPosition[0]][4] !== "") {
+      setBoardPosition([boardPosition[0] + 1, 0]);
+    }
+  };
+
+  const handleBackspace = () => {
+    // WIP
+    // if (boardPosition[1] > 0) {
+    //   setBoardPosition([boardPosition[0], boardPosition[1] - 1]);
+    //   setBoardState(() => {
+    //     const newBoardState: BoardState = [...boardState];
+    //     newBoardState[boardPosition[0]][boardPosition[1]] = "";
+    //     return newBoardState;
+    //   });
+    // } else if (boardPosition[1] === 0) {
+    //   setBoardState(() => {
+    //     const newBoardState: BoardState = [...boardState];
+    //     newBoardState[boardPosition[0]][boardPosition[1]] = "";
+    //     return newBoardState;
+    //   });
+    // }
+  };
 
   return (
     <StyledApp>
       <StyledHeader>
         <StyledTitle>It's Another Wordle Clone! 🤪</StyledTitle>
       </StyledHeader>
-      <Board grid={grid} />
-      <Keyboard setSelectedKey={setSelectedKey} />
+      <Board boardState={boardState} />
+      <Keyboard clickHandler={clickHandler} />
     </StyledApp>
   );
 };

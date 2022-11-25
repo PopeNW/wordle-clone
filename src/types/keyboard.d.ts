@@ -1,8 +1,8 @@
 interface IKeyboardRow {
   row: string[];
-  setSelectedKey: Function;
+  clickHandler: Function;
 }
 
 interface IKeyboard {
-  setSelectedKey: Function;
+  clickHandler: Function;
 }
