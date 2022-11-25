@@ -4,7 +4,7 @@ import App from "../app";
 
 test("should render app title", () => {
   render(<App />);
-  const titleElement = screen.getByText(/It's Another Wordle Clone! 🤪/i);
+  const titleElement = screen.getByText("It's Another Wordle Clone! 🤪");
   expect(titleElement).toBeInTheDocument();
 });
 
