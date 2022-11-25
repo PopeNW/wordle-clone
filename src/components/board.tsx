@@ -31,22 +31,21 @@ const StyledTile = styled.div`
   font-weight: bold;
 `;
 
-const Row = ({ row }: IBoardRow) => {
-  return (
-    <StyledRow>
-      {row.map((cell, index) => (
-        <StyledTile key={index}>{cell}</StyledTile>
-      ))}
-    </StyledRow>
-  );
-};
-
 const Board = ({ boardState }: IBoard) => {
   return (
     <StyledBoardContainer>
-      <StyledBoard>
-        {boardState.map((row, index) => (
-          <Row key={index} row={row} />
+      <StyledBoard data-testid="board">
+        {boardState.map((row, rowIndex) => (
+          <StyledRow key={rowIndex} data-testid={`board-row-${rowIndex}`}>
+            {row.map((cell, cellIndex) => (
+              <StyledTile
+                key={cellIndex}
+                data-testid={`board-row-${rowIndex}-tile-${cellIndex}`}
+              >
+                {cell}
+              </StyledTile>
+            ))}
+          </StyledRow>
         ))}
       </StyledBoard>
     </StyledBoardContainer>
