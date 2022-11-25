@@ -19,18 +19,6 @@ const StyledTitle = styled.h1`
   margin: 0 auto;
 `;
 
-/* 
-Change plan
-
-I want to only re-render when the grid state changes.
-
-Currently, the App re-renders anytime there is a button press.
-This is not working well.
-
-I want to create a clickHandler function which will be called 
-whenever I click a button, and update the grid state.
-
-*/
 const App = () => {
   const [boardPosition, setBoardPosition] = useState<BoardPosition>([0, 0]);
   const [boardState, setBoardState] = useState<BoardState>([
