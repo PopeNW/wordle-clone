@@ -7,7 +7,7 @@ const StyledBoardContainer = styled.div`
   margin: 1.7rem 0;
 `;
 
-const StyledGrid = styled.div`
+const StyledBoard = styled.div`
   display: grid;
 `;
 
@@ -44,11 +44,11 @@ const Row = ({ row }: IBoardRow) => {
 const Board = ({ boardState }: IBoard) => {
   return (
     <StyledBoardContainer>
-      <StyledGrid>
+      <StyledBoard>
         {boardState.map((row, index) => (
           <Row key={index} row={row} />
         ))}
-      </StyledGrid>
+      </StyledBoard>
     </StyledBoardContainer>
   );
 };
