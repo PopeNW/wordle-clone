@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Board from "../components/board";
 
-test("should render empty board", () => {
+it("should render board", () => {
   const mockBoardState: BoardState = [
     ["", "", "", "", ""],
     ["", "", "", "", ""],
@@ -18,7 +18,6 @@ test("should render empty board", () => {
         `board-row-${rowIndex}-tile-${tileIndex}`
       );
       expect(tileElement).toBeInTheDocument();
-      expect(tileElement).toBeEmptyDOMElement();
     });
   });
 });
