@@ -25,7 +25,7 @@ const StyledTile = styled.div`
   height: 3.7rem;
   margin: 0.2rem;
 
-  border: 0.1rem solid grey;
+  border: 2px solid #d3d6da;
 
   font-size: 2rem;
   font-weight: bold;

@@ -27,7 +27,7 @@ const StyledKey = styled.button`
   border: none;
   border-radius: 0.2rem;
 
-  background-color: lightgrey;
+  background-color: #d3d6da;
 
   font-size: 0.85rem;
   font-weight: bold;

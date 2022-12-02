@@ -9,12 +9,14 @@ const StyledApp = styled.div`
 
 const StyledHeader = styled.header`
   display: flex;
-  background-color: #2d468c;
   padding: 1rem;
+  border-bottom: 1px solid #d3d6da;
 `;
 
 const StyledTitle = styled.h1`
-  color: #eeeeee;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 700;
+  color: #000000;
   margin: 0 auto;
 `;
 
@@ -79,7 +81,7 @@ const App = () => {
   return (
     <StyledApp>
       <StyledHeader>
-        <StyledTitle>It's Another Wordle Clone! 🤪</StyledTitle>
+        <StyledTitle>Wordle</StyledTitle>
       </StyledHeader>
       <Board boardState={boardState} />
       <Keyboard clickHandler={clickHandler} />
