@@ -8,12 +8,10 @@ test("should render app title", () => {
   expect(titleElement).toBeInTheDocument();
 });
 
-test("should handle alphabetical key click and  first tile", () => {
+test("should render alphabetical character in first tile on board", () => {
   render(<App />);
   const tileElement = screen.getByTestId("board-row-0-tile-0");
   const buttonElement = screen.getByText("Q", { selector: "button" });
-
-  expect(tileElement).toHaveTextContent("");
 
   click(buttonElement);
 

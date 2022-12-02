@@ -47,73 +47,11 @@ const Row = ({ row, clickHandler }: IKeyboardRow) => {
   );
 };
 
-export enum KeyboardValues {
-  Q = "Q",
-  W = "W",
-  E = "E",
-  R = "R",
-  T = "T",
-  Y = "Y",
-  U = "U",
-  I = "I",
-  O = "O",
-  P = "P",
-  A = "A",
-  S = "S",
-  D = "D",
-  F = "F",
-  G = "G",
-  H = "H",
-  J = "J",
-  K = "K",
-  L = "L",
-  Z = "Z",
-  X = "X",
-  C = "C",
-  V = "V",
-  B = "B",
-  N = "N",
-  M = "M",
-  ENTER = "ENTER",
-  BACKSPACE = "BACKSPACE",
-}
-
 const Keyboard = ({ clickHandler }: IKeyboard) => {
   const keyboardValues = [
-    [
-      KeyboardValues.Q,
-      KeyboardValues.W,
-      KeyboardValues.E,
-      KeyboardValues.R,
-      KeyboardValues.T,
-      KeyboardValues.Y,
-      KeyboardValues.U,
-      KeyboardValues.I,
-      KeyboardValues.O,
-      KeyboardValues.P,
-    ],
-    [
-      KeyboardValues.A,
-      KeyboardValues.S,
-      KeyboardValues.D,
-      KeyboardValues.F,
-      KeyboardValues.G,
-      KeyboardValues.H,
-      KeyboardValues.J,
-      KeyboardValues.K,
-      KeyboardValues.L,
-    ],
-    [
-      KeyboardValues.ENTER,
-      KeyboardValues.Z,
-      KeyboardValues.X,
-      KeyboardValues.C,
-      KeyboardValues.V,
-      KeyboardValues.B,
-      KeyboardValues.N,
-      KeyboardValues.M,
-      KeyboardValues.BACKSPACE,
-    ],
+    ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+    ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
+    ["ENTER", "Z", "X", "C", "V", "B", "N", "M", "BACKSPACE"],
   ];
 
   return (

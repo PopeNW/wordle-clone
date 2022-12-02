@@ -2,7 +2,6 @@ import { useState } from "react";
 import styled from "styled-components";
 import Keyboard from "./components/keyboard";
 import Board from "./components/board";
-import { KeyboardValues } from "./components/keyboard";
 
 const StyledApp = styled.div`
   display: block;
@@ -31,9 +30,9 @@ const App = () => {
   ]);
 
   const clickHandler = (selectedKey: string) => {
-    if (selectedKey === KeyboardValues.ENTER) {
+    if (selectedKey === "ENTER") {
       handleEnterKey();
-    } else if (selectedKey === KeyboardValues.BACKSPACE) {
+    } else if (selectedKey === "BACKSPACE") {
       handleBackspace();
     } else {
       handleAlphabeticalKey(selectedKey);
