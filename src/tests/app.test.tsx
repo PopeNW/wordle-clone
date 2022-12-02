@@ -49,11 +49,22 @@ test("should not render characters on next row when clicking ENTER button on an 
   const enterButtonElement = screen.getByText("ENTER", { selector: "button" });
   click(enterButtonElement);
 
-  const buttonElement = screen.getByText("Q", { selector: "button" });
-  click(buttonElement);
+  const charButtonElement = screen.getByText("Q", { selector: "button" });
+  click(charButtonElement);
 
   const tileElement = screen.getByTestId("board-row-1-tile-0");
   expect(tileElement).not.toHaveTextContent("Q");
 });
 
-test("should handle click for BACKSPACE key", () => {});
+test("should render character removal from previous tile when clicking BACKSPACE button", () => {
+  render(<App />);
+
+  const charButtonElement = screen.getByText("Q", { selector: "button" });
+  click(charButtonElement);
+
+  const backspaceButtonElement = screen.getByText("BACKSPACE", { selector: "button" });
+  click(backspaceButtonElement);
+
+  const tileElement = screen.getByTestId("board-row-0-tile-0");
+  expect(tileElement).not.toHaveTextContent("Q");
+});
