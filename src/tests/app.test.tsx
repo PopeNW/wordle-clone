@@ -16,6 +16,7 @@ describe("Handle clicks", () => {
       render(<App />);
 
       const keyChars = ["Q", "W", "E", "R", "T"];
+
       keyChars.forEach((keyChar, index) => {
         const buttonElement = screen.getByText(keyChar, { selector: "button" });
         click(buttonElement);
@@ -30,8 +31,9 @@ describe("Handle clicks", () => {
     it("should render characters on next row when clicking ENTER button on a filled row", () => {
       render(<App />);
 
-      const firstRowKeyChars = ["Q", "W", "E", "R", "T"];
-      firstRowKeyChars.forEach((keyChar) => {
+      const keyChars = ["Q", "W", "E", "R", "T"];
+
+      keyChars.forEach((keyChar) => {
         const buttonElement = screen.getByText(keyChar, { selector: "button" });
         click(buttonElement);
       });
@@ -41,8 +43,7 @@ describe("Handle clicks", () => {
       });
       click(enterButtonElement);
 
-      const secondRowKeyChars = ["Y", "U", "I", "O", "P"];
-      secondRowKeyChars.forEach((keyChar, index) => {
+      keyChars.forEach((keyChar, index) => {
         const buttonElement = screen.getByText(keyChar, { selector: "button" });
         click(buttonElement);
 
