@@ -21,7 +21,10 @@ const StyledTitle = styled.h1`
 `;
 
 const App = () => {
-  const [boardPosition, setBoardPosition] = useState<BoardPosition>([0, 0]);
+  const [boardPosition, setBoardPosition] = useState<BoardPosition>({
+    row: 0,
+    col: 0,
+  });
   const [boardState, setBoardState] = useState<BoardState>([
     ["", "", "", "", ""],
     ["", "", "", "", ""],
@@ -42,32 +45,35 @@ const App = () => {
   };
 
   const handleAlphabeticalKey = (selectedKey: string) => {
-    if (boardState[boardPosition[0]][boardPosition[1]] === "") {
+    if (boardState[boardPosition.row][boardPosition.col] === "") {
       setBoardState(() => {
         const newBoardState: BoardState = [...boardState];
-        newBoardState[boardPosition[0]][boardPosition[1]] = selectedKey;
+        newBoardState[boardPosition.row][boardPosition.col] = selectedKey;
         return newBoardState;
       });
-      if (boardPosition[1] < 4) {
-        setBoardPosition([boardPosition[0], boardPosition[1] + 1]);
+      if (boardPosition.col < 4) {
+        setBoardPosition({
+          row: boardPosition.row,
+          col: boardPosition.col + 1,
+        });
       }
     }
   };
 
   const handleEnterKey = () => {
-    if (boardState[boardPosition[0]][4] !== "") {
-      setBoardPosition([boardPosition[0] + 1, 0]);
+    if (boardState[boardPosition.row][4] !== "") {
+      setBoardPosition({ row: boardPosition.row + 1, col: 0 });
     }
   };
 
   const handleBackspace = () => {
-    if (boardPosition[1] > 0) {
+    if (boardPosition.col > 0) {
       setBoardState(() => {
         const newBoardState: BoardState = [...boardState];
-        newBoardState[boardPosition[0]][boardPosition[1] - 1] = "";
+        newBoardState[boardPosition.row][boardPosition.col - 1] = "";
         return newBoardState;
       });
-      setBoardPosition([boardPosition[0], boardPosition[1] - 1]);
+      setBoardPosition({ row: boardPosition.row, col: boardPosition.col - 1 });
     }
   };
 

@@ -1,1 +1,4 @@
-type BoardPosition = [number, number];
+interface BoardPosition {
+    row: number;
+    col: number;
+}
