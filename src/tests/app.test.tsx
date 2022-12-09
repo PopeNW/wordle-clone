@@ -89,12 +89,12 @@ describe("Handle clicks", () => {
 
       const keyChars = ["Q", "W", "E", "R", "T"];
 
-      keyChars.forEach((key) => {
-        const charButtonElement = screen.getByText(key, { selector: "button" });
+      keyChars.forEach((keyChar) => {
+        const charButtonElement = screen.getByText(keyChar, { selector: "button" });
         click(charButtonElement);
       });
 
-      keyChars.reverse().forEach((key, index, array) => {
+      keyChars.reverse().forEach((keyChar, index, array) => {
         const backspaceButtonElement = screen.getByText("BACKSPACE", {
           selector: "button",
         });
@@ -104,7 +104,7 @@ describe("Handle clicks", () => {
         const tileElement = screen.getByTestId(
           `board-row-0-tile-${tilePosition}`
         );
-        expect(tileElement).not.toHaveTextContent(key);
+        expect(tileElement).not.toHaveTextContent(keyChar);
       });
     });
   });

@@ -51,7 +51,8 @@ const App = () => {
         newBoardState[boardPosition.row][boardPosition.col] = selectedKey;
         return newBoardState;
       });
-      if (boardPosition.col < 4) {
+
+      if (boardPosition.col <= 4) {
         setBoardPosition({
           row: boardPosition.row,
           col: boardPosition.col + 1,
@@ -68,12 +69,18 @@ const App = () => {
 
   const handleBackspace = () => {
     if (boardPosition.col > 0) {
+      const newBoardPosition = {
+        row: boardPosition.row,
+        col: boardPosition.col - 1,
+      };
+
       setBoardState(() => {
         const newBoardState: BoardState = [...boardState];
-        newBoardState[boardPosition.row][boardPosition.col - 1] = "";
+        newBoardState[newBoardPosition.row][newBoardPosition.col] = "";
         return newBoardState;
       });
-      setBoardPosition({ row: boardPosition.row, col: boardPosition.col - 1 });
+
+      setBoardPosition(newBoardPosition);
     }
   };
 
