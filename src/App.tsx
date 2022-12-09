@@ -61,21 +61,14 @@ const App = () => {
   };
 
   const handleBackspace = () => {
-    // WIP
-    // if (boardPosition[1] > 0) {
-    //   setBoardPosition([boardPosition[0], boardPosition[1] - 1]);
-    //   setBoardState(() => {
-    //     const newBoardState: BoardState = [...boardState];
-    //     newBoardState[boardPosition[0]][boardPosition[1]] = "";
-    //     return newBoardState;
-    //   });
-    // } else if (boardPosition[1] === 0) {
-    //   setBoardState(() => {
-    //     const newBoardState: BoardState = [...boardState];
-    //     newBoardState[boardPosition[0]][boardPosition[1]] = "";
-    //     return newBoardState;
-    //   });
-    // }
+    if (boardPosition[1] > 0) {
+      setBoardState(() => {
+        const newBoardState: BoardState = [...boardState];
+        newBoardState[boardPosition[0]][boardPosition[1] - 1] = "";
+        return newBoardState;
+      });
+      setBoardPosition([boardPosition[0], boardPosition[1] - 1]);
+    }
   };
 
   return (
