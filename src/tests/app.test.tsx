@@ -69,7 +69,7 @@ describe("Handle clicks", () => {
   });
 
   describe("BACKSPACE button", () => {
-    it("should render character removal from first tile when clicking BACKSPACE button", () => {
+    it("should render character removal from first tile", () => {
       render(<App />);
 
       const charButtonElement = screen.getByText("Q", { selector: "button" });
@@ -84,13 +84,32 @@ describe("Handle clicks", () => {
       expect(tileElement).not.toHaveTextContent("Q");
     });
 
+    it("should render new character input after character removal", () => {
+      render(<App />);
+
+      const charButtonElement = screen.getByText("Q", { selector: "button" });
+      click(charButtonElement);
+
+      const backspaceButtonElement = screen.getByText("BACKSPACE", {
+        selector: "button",
+      });
+      click(backspaceButtonElement);
+
+      click(charButtonElement);
+
+      const tileElement = screen.getByTestId("board-row-0-tile-0");
+      expect(tileElement).toHaveTextContent("Q");
+    });
+
     it("should render character removals from a filled row", () => {
       render(<App />);
 
       const keyChars = ["Q", "W", "E", "R", "T"];
 
       keyChars.forEach((keyChar) => {
-        const charButtonElement = screen.getByText(keyChar, { selector: "button" });
+        const charButtonElement = screen.getByText(keyChar, {
+          selector: "button",
+        });
         click(charButtonElement);
       });
 
