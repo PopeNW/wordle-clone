@@ -43,7 +43,7 @@ const Board = ({ boardState }: IBoard) => {
                 key={cellIndex}
                 data-testid={`board-row-${rowIndex}-tile-${cellIndex}`}
               >
-                {cell}
+                {cell.letter}
               </StyledTile>
             ))}
           </StyledRow>

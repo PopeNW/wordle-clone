@@ -20,19 +20,69 @@ const StyledTitle = styled.h1`
   margin: 0 auto;
 `;
 
+const wordle = "DUCKS";
+
 const App = () => {
   const [boardPosition, setBoardPosition] = useState<BoardPosition>({
     row: 0,
     col: 0,
   });
   const [boardState, setBoardState] = useState<BoardState>([
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
+    [
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+    ],
+    [
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+    ],
+    [
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+    ],
+    [
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+    ],
+    [
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+    ],
+    [
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+      { letter: "" },
+    ],
   ]);
+
+  const updateRowState = (guess: RowState) => {
+    return guess.map((tile, index) => {
+      let newTile = tile;
+
+      if (wordle.charAt(index) === tile.letter) {
+        newTile = { ...tile, isInCorrectSpot: true };
+      }
+
+      return newTile;
+    });
+  };
 
   const clickHandler = (selectedKey: string) => {
     if (selectedKey === "ENTER") {
@@ -45,10 +95,11 @@ const App = () => {
   };
 
   const handleAlphabeticalKey = (selectedKey: string) => {
-    if (boardState[boardPosition.row][boardPosition.col] === "") {
+    if (boardState[boardPosition.row][boardPosition.col].letter === "") {
       setBoardState(() => {
         const newBoardState: BoardState = [...boardState];
-        newBoardState[boardPosition.row][boardPosition.col] = selectedKey;
+        newBoardState[boardPosition.row][boardPosition.col].letter =
+          selectedKey;
         return newBoardState;
       });
 
@@ -62,7 +113,14 @@ const App = () => {
   };
 
   const handleEnterKey = () => {
-    if (boardState[boardPosition.row][4] !== "") {
+    if (boardState[boardPosition.row][4].letter !== "") {
+      setBoardState(() => {
+        const newBoardState: BoardState = [...boardState];
+        newBoardState[boardPosition.row] = updateRowState(
+          newBoardState[boardPosition.row]
+        );
+        return newBoardState;
+      });
       setBoardPosition({ row: boardPosition.row + 1, col: 0 });
     }
   };
@@ -76,7 +134,7 @@ const App = () => {
 
       setBoardState(() => {
         const newBoardState: BoardState = [...boardState];
-        newBoardState[newBoardPosition.row][newBoardPosition.col] = "";
+        newBoardState[newBoardPosition.row][newBoardPosition.col].letter = "";
         return newBoardState;
       });
 

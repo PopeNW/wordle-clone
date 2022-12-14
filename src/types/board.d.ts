@@ -1,4 +1,10 @@
-type RowState = [string, string, string, string, string];
+interface TileState {
+  letter: string;
+  isInWordle?: boolean;
+  isInCorrectSpot?: boolean;
+}
+
+type RowState = [TileState, TileState, TileState, TileState, TileState];
 
 type BoardState = [RowState, RowState, RowState, RowState, RowState, RowState];
 
