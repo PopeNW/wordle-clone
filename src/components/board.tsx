@@ -25,7 +25,8 @@ const StyledTile = styled.div`
   height: 3.7rem;
   margin: 0.2rem;
 
-  border: 2px solid #d3d6da;
+  border: 2px solid;
+  border-color: ${(props) => (props.children ? "#878a8c" : "#d3d6da")};
 
   font-size: 2rem;
   font-weight: bold;
