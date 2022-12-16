@@ -27,10 +27,13 @@ const StyledTile = styled.div`
 
   border: 2px solid;
   border-color: ${(props) => (props.children ? "#878a8c" : "#d3d6da")};
-
   font-size: 2rem;
   font-weight: bold;
 `;
+
+const Tile = ({ tile }: ITile) => {
+  return <StyledTile>{tile.letter}</StyledTile>;
+};
 
 const Board = ({ boardState }: IBoard) => {
   return (
@@ -38,13 +41,12 @@ const Board = ({ boardState }: IBoard) => {
       <StyledBoard data-testid="board">
         {boardState.map((row, rowIndex) => (
           <StyledRow key={rowIndex} data-testid={`board-row-${rowIndex}`}>
-            {row.map((cell, cellIndex) => (
-              <StyledTile
-                key={cellIndex}
-                data-testid={`board-row-${rowIndex}-tile-${cellIndex}`}
-              >
-                {cell.letter}
-              </StyledTile>
+            {row.map((tile, tileIndex) => (
+              <Tile
+                key={tileIndex}
+                data-testid={`board-row-${rowIndex}-tile-${tileIndex}`}
+                tile={tile}
+              />
             ))}
           </StyledRow>
         ))}

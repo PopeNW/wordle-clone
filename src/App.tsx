@@ -136,11 +136,11 @@ const App = () => {
       }
 
       return newTile;
-    });
+    }) as RowState;
 
     setBoardState(() => {
       const newBoardState = boardState;
-      newBoardState[boardPosition.row] = newRowState as RowState;
+      newBoardState[boardPosition.row] = newRowState;
       return newBoardState;
     });
   };
