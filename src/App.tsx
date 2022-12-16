@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import Keyboard from "./components/keyboard";
 import Board from "./components/board";
-import { TileStatus } from "./types/enums";
+import { TileStatus } from "./components/constants/enums";
 
 const StyledApp = styled.div`
   display: block;
