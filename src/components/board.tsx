@@ -22,12 +22,15 @@ const StyledTile = styled.div<TileProps>`
   align-items: center;
   justify-content: center;
 
+  font-size: 2rem;
+  font-weight: bold;
+
   width: 3.7rem;
   height: 3.7rem;
   margin: 0.2rem;
 
-  border: 2px solid;
-  border-color: ${(props) => (props.children ? "#878a8c" : "#d3d6da")};
+  border: 2px solid ${(props) => (props.children ? "#878a8c" : "#d3d6da")};
+
   background-color: ${(props) => {
     switch (props.status) {
       case TileStatus.CORRECT_SPOT:
@@ -40,8 +43,6 @@ const StyledTile = styled.div<TileProps>`
         return "#FFFFFF";
     }
   }};
-  font-size: 2rem;
-  font-weight: bold;
 `;
 
 const Board = ({ boardState }: BoardProps) => {
