@@ -9,8 +9,8 @@ type RowState = [TileState, TileState, TileState, TileState, TileState];
 
 type BoardState = [RowState, RowState, RowState, RowState, RowState, RowState];
 
-interface ITile {
-  tile: TileState;
+interface TileProps {
+  status: TileStatus;
 }
 
 interface IBoard {

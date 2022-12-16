@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { TileStatus } from "../types/enums";
 
 const StyledBoardContainer = styled.div`
   display: flex;
@@ -16,7 +17,7 @@ const StyledRow = styled.div`
   justify-content: center;
 `;
 
-const StyledTile = styled.div`
+const StyledTile = styled.div<TileProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,13 +28,21 @@ const StyledTile = styled.div`
 
   border: 2px solid;
   border-color: ${(props) => (props.children ? "#878a8c" : "#d3d6da")};
+  background-color: ${(props) => {
+    switch (props.status) {
+      case TileStatus.CORRECT_SPOT:
+        return "#6aaa64";
+      case TileStatus.WRONG_SPOT:
+        return "#c9b458";
+      case TileStatus.NOT_IN_WORD:
+        return "#787c7e";
+      default:
+        return "#FFFFFF";
+    }
+  }};
   font-size: 2rem;
   font-weight: bold;
 `;
-
-const Tile = ({ tile }: ITile) => {
-  return <StyledTile>{tile.letter}</StyledTile>;
-};
 
 const Board = ({ boardState }: IBoard) => {
   return (
@@ -42,11 +51,13 @@ const Board = ({ boardState }: IBoard) => {
         {boardState.map((row, rowIndex) => (
           <StyledRow key={rowIndex} data-testid={`board-row-${rowIndex}`}>
             {row.map((tile, tileIndex) => (
-              <Tile
+              <StyledTile
                 key={tileIndex}
                 data-testid={`board-row-${rowIndex}-tile-${tileIndex}`}
-                tile={tile}
-              />
+                status={tile.status}
+              >
+                {tile.letter}
+              </StyledTile>
             ))}
           </StyledRow>
         ))}
