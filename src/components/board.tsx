@@ -44,7 +44,7 @@ const StyledTile = styled.div<TileProps>`
   font-weight: bold;
 `;
 
-const Board = ({ boardState }: IBoard) => {
+const Board = ({ boardState }: BoardProps) => {
   return (
     <StyledBoardContainer>
       <StyledBoard data-testid="board">

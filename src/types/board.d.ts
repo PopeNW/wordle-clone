@@ -13,6 +13,6 @@ interface TileProps {
   status: TileStatus;
 }
 
-interface IBoard {
+interface BoardProps {
   boardState: BoardState;
 }
