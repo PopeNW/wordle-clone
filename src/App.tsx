@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import Keyboard from "./components/keyboard";
 import Board from "./components/board";
+import { TileStatus } from "./types/enums";
 
 const StyledApp = styled.div`
   display: block;
@@ -29,60 +30,48 @@ const App = () => {
   });
   const [boardState, setBoardState] = useState<BoardState>([
     [
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
     ],
     [
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
     ],
     [
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
     ],
     [
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
     ],
     [
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
     ],
     [
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
-      { letter: "" },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
+      { letter: "", status: TileStatus.UNSET },
     ],
   ]);
-
-  const updateRowState = (guess: RowState) => {
-    return guess.map((tile, index) => {
-      let newTile = tile;
-
-      if (wordle.charAt(index) === tile.letter) {
-        newTile = { ...tile, isInCorrectSpot: true };
-      }
-
-      return newTile;
-    });
-  };
 
   const clickHandler = (selectedKey: string) => {
     if (selectedKey === "ENTER") {
@@ -112,19 +101,6 @@ const App = () => {
     }
   };
 
-  const handleEnterKey = () => {
-    if (boardState[boardPosition.row][4].letter !== "") {
-      setBoardState(() => {
-        const newBoardState: BoardState = [...boardState];
-        newBoardState[boardPosition.row] = updateRowState(
-          newBoardState[boardPosition.row]
-        );
-        return newBoardState;
-      });
-      setBoardPosition({ row: boardPosition.row + 1, col: 0 });
-    }
-  };
-
   const handleBackspace = () => {
     if (boardPosition.col > 0) {
       const newBoardPosition = {
@@ -140,6 +116,33 @@ const App = () => {
 
       setBoardPosition(newBoardPosition);
     }
+  };
+
+  const handleEnterKey = () => {
+    if (boardState[boardPosition.row][4].letter !== "") {
+      updateRowTilesStatus();
+      setBoardPosition({ row: boardPosition.row + 1, col: 0 });
+    }
+  };
+
+  const updateRowTilesStatus = () => {
+    const currentGuess = boardState[boardPosition.row];
+
+    const newRowState = currentGuess.map((tile, index) => {
+      let newTile = tile;
+
+      if (wordle.charAt(index) === tile.letter) {
+        newTile = { ...tile, status: TileStatus.CORRECT_SPOT };
+      }
+
+      return newTile;
+    });
+
+    setBoardState(() => {
+      const newBoardState = boardState;
+      newBoardState[boardPosition.row] = newRowState as RowState;
+      return newBoardState;
+    });
   };
 
   return (

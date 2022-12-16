@@ -1,7 +1,6 @@
 interface TileState {
   letter: string;
-  isInWordle?: boolean;
-  isInCorrectSpot?: boolean;
+  status: number;
 }
 
 type RowState = [TileState, TileState, TileState, TileState, TileState];
