@@ -120,27 +120,34 @@ const App = () => {
 
   const handleEnterKey = () => {
     if (boardState[boardPosition.row][4].letter !== "") {
-      updateRowTilesStatus();
+      updateRowStatus();
       setBoardPosition({ row: boardPosition.row + 1, col: 0 });
     }
   };
 
-  const updateRowTilesStatus = () => {
-    const currentGuess = boardState[boardPosition.row];
+  const updateTileStatus = (tile: TileState, index: number) => {
+    if (wordle.charAt(index) === tile.letter) {
+      return { ...tile, status: TileStatus.CORRECT_SPOT };
+    }
+    return tile;
+  };
 
-    const newRowState = currentGuess.map((tile, index) => {
-      let newTile = tile;
-
-      if (wordle.charAt(index) === tile.letter) {
-        newTile = { ...tile, status: TileStatus.CORRECT_SPOT };
-      }
-
-      return newTile;
-    }) as RowState;
+  const updateRowStatus = () => {
+    const completedRow = boardState[boardPosition.row];
+    const newRowState = completedRow.map((tile, index) =>
+      updateTileStatus(tile, index)
+    );
 
     setBoardState(() => {
       const newBoardState = boardState;
-      newBoardState[boardPosition.row] = newRowState;
+      newBoardState[boardPosition.row] = [
+        newRowState[0],
+        newRowState[1],
+        newRowState[2],
+        newRowState[3],
+        newRowState[4],
+      ];
+
       return newBoardState;
     });
   };
