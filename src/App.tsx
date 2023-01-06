@@ -129,7 +129,11 @@ const App = () => {
     if (wordle.charAt(index) === tile.letter) {
       return { ...tile, status: TileStatus.CORRECT_SPOT };
     }
-    return tile;
+    // This check needs to take into account other letters in the correct placement already
+    if (wordle.includes(tile.letter)) {
+      return { ...tile, status: TileStatus.WRONG_SPOT };
+    }
+    return { ...tile, status: TileStatus.NOT_IN_WORD };
   };
 
   const updateRowStatus = () => {

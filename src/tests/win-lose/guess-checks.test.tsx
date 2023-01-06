@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { click } from "@testing-library/user-event/dist/click";
 import App from "../../app";
-import { WHITE, GREY, GREEN, ORANGE } from "../../components/constants/colours";
+import colours from "../../components/constants/colours";
 
 test("should render a green tile when letter is in the word and in the correct spot", () => {
   render(<App />);
@@ -20,15 +20,15 @@ test("should render a green tile when letter is in the word and in the correct s
 
   const tileElement = screen.getByTestId(`board-row-0-tile-0`);
   expect(tileElement).toHaveStyle({
-    "background-color": GREEN,
-    color: WHITE,
+    "background-color": colours.green,
+    color: colours.white,
   });
 });
 
 test("should render a yellow tile when letter is in the word but in the wrong spot", () => {
   render(<App />);
 
-  const keyChars = ["D", "U", "C", "K", "S"];
+  const keyChars = ["U", "N", "D", "E", "R"];
 
   keyChars.forEach((keyChar) => {
     const buttonElement = screen.getByText(keyChar, { selector: "button" });
@@ -42,15 +42,15 @@ test("should render a yellow tile when letter is in the word but in the wrong sp
 
   const tileElement = screen.getByTestId(`board-row-0-tile-0`);
   expect(tileElement).toHaveStyle({
-    "background-color": ORANGE,
-    color: WHITE,
+    "background-color": colours.orange,
+    color: colours.white,
   });
 });
 
 test("should render a grey tile when letter is not in the word in any spot", () => {
   render(<App />);
 
-  const keyChars = ["D", "U", "C", "K", "S"];
+  const keyChars = ["G", "O", "O", "S", "E"];
 
   keyChars.forEach((keyChar) => {
     const buttonElement = screen.getByText(keyChar, { selector: "button" });
@@ -64,7 +64,7 @@ test("should render a grey tile when letter is not in the word in any spot", () 
 
   const tileElement = screen.getByTestId(`board-row-0-tile-0`);
   expect(tileElement).toHaveStyle({
-    "background-color": GREY,
-    color: WHITE,
+    "background-color": colours.grey,
+    color: colours.white,
   });
 });
