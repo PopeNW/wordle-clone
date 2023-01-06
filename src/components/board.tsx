@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { TileStatus } from "./constants/enums";
-import { WHITE, GREEN, ORANGE, GREY } from "./constants/colours";
+import { WHITE, LIGHT_GREY, GREY, GREEN, ORANGE } from "./constants/colours";
 
 const StyledBoardContainer = styled.div`
   display: flex;
@@ -30,18 +30,20 @@ const StyledTile = styled.div<TileProps>`
   height: 3.7rem;
   margin: 0.2rem;
 
-  border: 2px solid ${(props) => (props.children ? "#878a8c" : "#d3d6da")};
+  border: 2px solid ${LIGHT_GREY};
 
   ${(props) => {
     switch (props.status) {
       case TileStatus.CORRECT_SPOT:
-        return `background-color: ${GREEN}; color: ${WHITE}`;
+        return `background-color: ${GREEN}; color: ${WHITE}; border-color: ${GREEN};`;
       case TileStatus.WRONG_SPOT:
-        return `background-color: ${ORANGE}; color: ${WHITE}`;
+        return `background-color: ${ORANGE}; color: ${WHITE}; border-color: ${ORANGE};`;
       case TileStatus.NOT_IN_WORD:
-        return `background-color: ${GREY}; color: ${WHITE}`;
+        return `background-color: ${GREY}; color: ${WHITE}; border-color: ${GREY};`;
       default:
-        return `background-color: ${WHITE}`;
+        return `background-color: ${WHITE}; ${
+          props.children && `border-color: ${GREY};`
+        }`;
     }
   }}
 `;
