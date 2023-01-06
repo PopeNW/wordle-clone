@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import Board from "../components/board";
 import { TileStatus } from "../components/constants/enums";
 
-it("should render board", () => {
+test("should render board", () => {
   const mockBoardState: BoardState = [
     [
       { letter: "", status: TileStatus.UNSET },

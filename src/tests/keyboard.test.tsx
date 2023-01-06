@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Keyboard from "../components/keyboard";
 
-it("should render keyboard", () => {
+test("should render keyboard", () => {
   const keyboardValues = [
     "Q",
     "W",
