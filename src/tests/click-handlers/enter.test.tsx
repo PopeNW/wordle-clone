@@ -1,42 +1,30 @@
 import { render, screen } from "@testing-library/react";
-import { click } from "@testing-library/user-event/dist/click";
+import { selectCharacters, selectEnter } from "../helpers/keyboard-input";
 import App from "../../app";
 
 test("should render characters on next row when clicking ENTER button on a filled row", () => {
   render(<App />);
 
-  const keyChars = ["Q", "W", "E", "R", "T"];
+  const chars = ["Q", "W", "E", "R", "T"];
 
-  keyChars.forEach((keyChar) => {
-    const buttonElement = screen.getByText(keyChar, { selector: "button" });
-    click(buttonElement);
-  });
+  selectCharacters(chars);
+  selectEnter();
+  selectCharacters(chars);
 
-  const enterButtonElement = screen.getByText("ENTER", {
-    selector: "button",
-  });
-  click(enterButtonElement);
-
-  keyChars.forEach((keyChar, index) => {
-    const buttonElement = screen.getByText(keyChar, { selector: "button" });
-    click(buttonElement);
-
+  chars.forEach((char, index) => {
     const tileElement = screen.getByTestId(`board-row-1-tile-${index}`);
-    expect(tileElement).toHaveTextContent(keyChar);
+    expect(tileElement).toHaveTextContent(char);
   });
 });
 
 test("should not render characters on next row when clicking ENTER button on an unfilled row", () => {
   render(<App />);
 
-  const enterButtonElement = screen.getByText("ENTER", {
-    selector: "button",
-  });
-  click(enterButtonElement);
+  const char = "Q";
 
-  const charButtonElement = screen.getByText("Q", { selector: "button" });
-  click(charButtonElement);
+  selectEnter();
+  selectCharacters([char]);
 
   const tileElement = screen.getByTestId("board-row-1-tile-0");
-  expect(tileElement).not.toHaveTextContent("Q");
+  expect(tileElement).not.toHaveTextContent(char);
 });

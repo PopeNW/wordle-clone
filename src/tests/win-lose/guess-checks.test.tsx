@@ -1,22 +1,13 @@
 import { render, screen } from "@testing-library/react";
-import { click } from "@testing-library/user-event/dist/click";
+import { selectCharacters, selectEnter } from "../helpers/keyboard-input";
 import App from "../../app";
 import colours from "../../constants/colours";
 
 test("should render a green tile when letter is in the word and in the correct spot", () => {
   render(<App />);
 
-  const keyChars = ["D", "U", "C", "K", "S"];
-
-  keyChars.forEach((keyChar) => {
-    const buttonElement = screen.getByText(keyChar, { selector: "button" });
-    click(buttonElement);
-  });
-
-  const enterButtonElement = screen.getByText("ENTER", {
-    selector: "button",
-  });
-  click(enterButtonElement);
+  selectCharacters(["D", "U", "C", "K", "S"]);
+  selectEnter();
 
   const tileElement = screen.getByTestId(`board-row-0-tile-0`);
   expect(tileElement).toHaveStyle({
@@ -28,17 +19,8 @@ test("should render a green tile when letter is in the word and in the correct s
 test("should render a yellow tile when letter is in the word but in the wrong spot", () => {
   render(<App />);
 
-  const keyChars = ["U", "N", "D", "E", "R"];
-
-  keyChars.forEach((keyChar) => {
-    const buttonElement = screen.getByText(keyChar, { selector: "button" });
-    click(buttonElement);
-  });
-
-  const enterButtonElement = screen.getByText("ENTER", {
-    selector: "button",
-  });
-  click(enterButtonElement);
+  selectCharacters(["U", "N", "D", "E", "R"]);
+  selectEnter();
 
   const tileElement = screen.getByTestId(`board-row-0-tile-0`);
   expect(tileElement).toHaveStyle({
@@ -50,17 +32,21 @@ test("should render a yellow tile when letter is in the word but in the wrong sp
 test("should render a grey tile when letter is not in the word in any spot", () => {
   render(<App />);
 
-  const keyChars = ["G", "O", "O", "S", "E"];
+  selectCharacters(["G", "O", "O", "S", "E"]);
+  selectEnter();
 
-  keyChars.forEach((keyChar) => {
-    const buttonElement = screen.getByText(keyChar, { selector: "button" });
-    click(buttonElement);
+  const tileElement = screen.getByTestId(`board-row-0-tile-0`);
+  expect(tileElement).toHaveStyle({
+    "background-color": colours.grey,
+    color: colours.white,
   });
+});
 
-  const enterButtonElement = screen.getByText("ENTER", {
-    selector: "button",
-  });
-  click(enterButtonElement);
+test("should render a grey tile if the same letter is already in the correct spot", () => {
+  render(<App />);
+
+  selectCharacters(["S", "O", "C", "K", "S"]);
+  selectEnter();
 
   const tileElement = screen.getByTestId(`board-row-0-tile-0`);
   expect(tileElement).toHaveStyle({

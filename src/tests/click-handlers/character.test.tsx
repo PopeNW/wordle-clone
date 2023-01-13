@@ -1,17 +1,16 @@
 import { render, screen } from "@testing-library/react";
-import { click } from "@testing-library/user-event/dist/click";
+import { selectCharacters } from "../helpers/keyboard-input";
 import App from "../../app";
 
-test("should render characters in first row tiles", () => {
+test("should render characters in first row tiles in the correct order", () => {
   render(<App />);
 
-  const keyChars = ["Q", "W", "E", "R", "T"];
+  const chars = ["Q", "W", "E", "R", "T"];
 
-  keyChars.forEach((keyChar, index) => {
-    const buttonElement = screen.getByText(keyChar, { selector: "button" });
-    click(buttonElement);
+  chars.forEach((char, index) => {
+    selectCharacters([char]);
 
     const tileElement = screen.getByTestId(`board-row-0-tile-${index}`);
-    expect(tileElement).toHaveTextContent(keyChar);
+    expect(tileElement).toHaveTextContent(char);
   });
 });

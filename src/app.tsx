@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Keyboard from "./components/keyboard";
 import Board from "./components/board";
 import { TileStatus } from "./constants/enums";
+import getWordle from "./get-wordle";
 
 const StyledApp = styled.div`
   display: block;
@@ -21,7 +22,7 @@ const StyledTitle = styled.h1`
   margin: 0 auto;
 `;
 
-const wordle = "DUCKS";
+const wordle = getWordle();
 
 const App = () => {
   const [boardPosition, setBoardPosition] = useState<BoardPosition>({
