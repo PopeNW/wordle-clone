@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import Board from "../components/board";
-import { TileStatus } from "../components/constants/enums";
+import { TileStatus } from "../constants/enums";
 
 test("should render board", () => {
   const mockBoardState: BoardState = [

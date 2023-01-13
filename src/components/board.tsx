@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { TileStatus } from "./constants/enums";
-import colours from "./constants/colours";
+import { TileStatus } from "../constants/enums";
+import colours from "../constants/colours";
 
 const StyledBoardContainer = styled.div`
   display: flex;
