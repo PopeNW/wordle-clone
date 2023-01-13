@@ -28,6 +28,7 @@ const App = () => {
     row: 0,
     col: 0,
   });
+
   const [boardState, setBoardState] = useState<BoardState>([
     [
       { letter: "", status: TileStatus.UNSET },
