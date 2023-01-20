@@ -1,8 +1,8 @@
-interface IKeyboardRow {
+interface KeyboardRowProps {
   row: string[];
   clickHandler: Function;
 }
 
-interface IKeyboard {
+interface KeyboardProps {
   clickHandler: Function;
 }

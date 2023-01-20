@@ -2,23 +2,17 @@ import styled from "styled-components";
 import { TileStatus } from "../constants/enums";
 import colours from "../constants/colours";
 
-const StyledBoardContainer = styled.div`
-  display: flex;
-  justify-content: center;
-
-  margin: 1.7rem 0;
-`;
-
-const StyledBoard = styled.div`
+const BoardWrapper = styled.div`
   display: grid;
+  margin: 1.7rem auto;
 `;
 
-const StyledRow = styled.div`
+const Row = styled.div`
   display: flex;
   justify-content: center;
 `;
 
-const StyledTile = styled.div<TileProps>`
+const Tile = styled.div<TileProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,23 +44,21 @@ const StyledTile = styled.div<TileProps>`
 
 const Board = ({ boardState }: BoardProps) => {
   return (
-    <StyledBoardContainer>
-      <StyledBoard data-testid="board">
-        {boardState.map((row, rowIndex) => (
-          <StyledRow key={rowIndex} data-testid={`board-row-${rowIndex}`}>
-            {row.map((tile, tileIndex) => (
-              <StyledTile
-                key={tileIndex}
-                data-testid={`board-row-${rowIndex}-tile-${tileIndex}`}
-                status={tile.status}
-              >
-                {tile.letter}
-              </StyledTile>
-            ))}
-          </StyledRow>
-        ))}
-      </StyledBoard>
-    </StyledBoardContainer>
+    <BoardWrapper data-testid="board">
+      {boardState.map((row, rowIndex) => (
+        <Row key={rowIndex} data-testid={`board-row-${rowIndex}`}>
+          {row.map((tile, tileIndex) => (
+            <Tile
+              key={tileIndex}
+              data-testid={`board-row-${rowIndex}-tile-${tileIndex}`}
+              status={tile.status}
+            >
+              {tile.letter}
+            </Tile>
+          ))}
+        </Row>
+      ))}
+    </BoardWrapper>
   );
 };
 
