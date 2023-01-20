@@ -1,20 +1,15 @@
 import styled from "styled-components";
 
-const StyledKeyboardContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const StyledGrid = styled.div`
+const KeyboardWrapper = styled.div`
   display: grid;
 `;
 
-const StyledRow = styled.div`
+const RowWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
 
-const StyledKey = styled.button`
+const Key = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,13 +32,13 @@ const StyledKey = styled.button`
 
 const Row = ({ row, clickHandler }: IKeyboardRow) => {
   return (
-    <StyledRow>
+    <RowWrapper>
       {row.map((keyText, index) => (
-        <StyledKey key={index} onClick={() => clickHandler(keyText)}>
+        <Key key={index} onClick={() => clickHandler(keyText)}>
           {keyText}
-        </StyledKey>
+        </Key>
       ))}
-    </StyledRow>
+    </RowWrapper>
   );
 };
 
@@ -55,13 +50,11 @@ const Keyboard = ({ clickHandler }: IKeyboard) => {
   ];
 
   return (
-    <StyledKeyboardContainer>
-      <StyledGrid>
-        {keyboardValues.map((row, index) => (
-          <Row key={index} row={row} clickHandler={clickHandler} />
-        ))}
-      </StyledGrid>
-    </StyledKeyboardContainer>
+    <KeyboardWrapper>
+      {keyboardValues.map((row, index) => (
+        <Row key={index} row={row} clickHandler={clickHandler} />
+      ))}
+    </KeyboardWrapper>
   );
 };
 
