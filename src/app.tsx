@@ -26,60 +26,55 @@ const StyledTitle = styled.h1`
 const App = () => {
   const [wordle] = useState(getWordle());
   const [boardState, setBoardState] = useState<BoardState>(initialiseBoard());
-  const [boardPosition, setBoardPosition] = useState<BoardPosition>({
-    row: 0,
-    col: 0,
-  });
+  const [currentRow, setCurrentRow] = useState(0);
+  const [currentColumn, setCurrentColumn] = useState(0);
 
   const clickHandler = (selectedKey: string) => {
-    if (selectedKey === "ENTER") {
-      handleEnterKey();
-    } else if (selectedKey === "BACKSPACE") {
-      handleBackspace();
-    } else {
-      handleAlphabeticalKey(selectedKey);
+    switch (selectedKey) {
+      case "ENTER":
+        return handleEnterKey();
+      case "BACKSPACE":
+        return handleBackspace();
+      default:
+        return handleAlphabeticalKey(selectedKey);
     }
   };
 
   const handleAlphabeticalKey = (selectedKey: string) => {
-    if (boardState[boardPosition.row][boardPosition.col].letter === "") {
+    if (!boardState[currentRow][currentColumn].letter) {
       setBoardState(() => {
         const newBoardState: BoardState = [...boardState];
-        newBoardState[boardPosition.row][boardPosition.col].letter =
-          selectedKey;
+        newBoardState[currentRow][currentColumn].letter = selectedKey;
         return newBoardState;
       });
 
-      if (boardPosition.col <= 4) {
-        setBoardPosition({
-          row: boardPosition.row,
-          col: boardPosition.col + 1,
-        });
+      if (currentColumn <= 4) {
+        setCurrentColumn(currentColumn + 1);
       }
     }
   };
 
   const handleBackspace = () => {
-    if (boardPosition.col > 0) {
-      const newBoardPosition = {
-        row: boardPosition.row,
-        col: boardPosition.col - 1,
-      };
+    if (currentColumn > 0) {
+      const newCurrentColumn = currentColumn - 1;
 
       setBoardState(() => {
         const newBoardState: BoardState = [...boardState];
-        newBoardState[newBoardPosition.row][newBoardPosition.col].letter = "";
+        newBoardState[currentRow][newCurrentColumn].letter = "";
         return newBoardState;
       });
 
-      setBoardPosition(newBoardPosition);
+      setCurrentColumn(newCurrentColumn);
     }
   };
 
   const handleEnterKey = () => {
-    if (boardState[boardPosition.row][4].letter !== "") {
+    const lastTile = boardState[currentRow].length - 1;
+
+    if (boardState[currentRow][lastTile].letter) {
       updateRowStatus();
-      setBoardPosition({ row: boardPosition.row + 1, col: 0 });
+      setCurrentRow(currentRow + 1);
+      setCurrentColumn(0);
     }
   };
 
@@ -87,29 +82,24 @@ const App = () => {
     if (wordle.charAt(index) === tile.letter) {
       return { ...tile, status: TileStatus.CORRECT_SPOT };
     }
+
     // This check needs to take into account other letters in the correct placement already
     if (wordle.includes(tile.letter)) {
       return { ...tile, status: TileStatus.WRONG_SPOT };
     }
+
     return { ...tile, status: TileStatus.NOT_IN_WORD };
   };
 
   const updateRowStatus = () => {
-    const completedRow = boardState[boardPosition.row];
+    const completedRow = boardState[currentRow];
     const newRowState = completedRow.map((tile, index) =>
       updateTileStatus(tile, index)
     );
 
     setBoardState(() => {
       const newBoardState = boardState;
-      newBoardState[boardPosition.row] = [
-        newRowState[0],
-        newRowState[1],
-        newRowState[2],
-        newRowState[3],
-        newRowState[4],
-      ];
-
+      newBoardState[currentRow] = newRowState;
       return newBoardState;
     });
   };
