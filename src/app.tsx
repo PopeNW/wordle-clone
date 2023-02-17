@@ -23,15 +23,13 @@ const StyledTitle = styled.h1`
   margin: 0 auto;
 `;
 
-const wordle = getWordle();
-
 const App = () => {
+  const [wordle] = useState(getWordle());
+  const [boardState, setBoardState] = useState<BoardState>(initialiseBoard());
   const [boardPosition, setBoardPosition] = useState<BoardPosition>({
     row: 0,
     col: 0,
   });
-
-  const [boardState, setBoardState] = useState<BoardState>(initialiseBoard());
 
   const clickHandler = (selectedKey: string) => {
     if (selectedKey === "ENTER") {
