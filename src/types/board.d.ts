@@ -5,9 +5,9 @@ interface TileState {
   status: TileStatus;
 }
 
-type RowState = [TileState, TileState, TileState, TileState, TileState];
+type RowState = TileState[];
 
-type BoardState = [RowState, RowState, RowState, RowState, RowState, RowState];
+type BoardState = RowState[];
 
 interface TileProps {
   status: TileStatus;

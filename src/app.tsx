@@ -4,6 +4,7 @@ import Keyboard from "./components/keyboard";
 import Board from "./components/board";
 import { TileStatus } from "./constants/enums";
 import getWordle from "./get-wordle";
+import { initialiseBoard } from "./util/initialise-board";
 
 const StyledApp = styled.div`
   display: block;
@@ -30,50 +31,7 @@ const App = () => {
     col: 0,
   });
 
-  const [boardState, setBoardState] = useState<BoardState>([
-    [
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-    ],
-    [
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-    ],
-    [
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-    ],
-    [
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-    ],
-    [
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-    ],
-    [
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-      { letter: "", status: TileStatus.UNSET },
-    ],
-  ]);
+  const [boardState, setBoardState] = useState<BoardState>(initialiseBoard());
 
   const clickHandler = (selectedKey: string) => {
     if (selectedKey === "ENTER") {
