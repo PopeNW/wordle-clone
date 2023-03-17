@@ -56,5 +56,20 @@ test("renders a grey tile if the same letter is already in the correct spot", ()
 });
 
 test("renders a yellow tile if a letter is in the wrong spot and the same letter is in the correct spot", () => {
-  // TODO: This needs to test a word with a duplicate letter
+  render(<App wordle="GOOSE" />);
+
+  selectCharacters(["O", "Z", "O", "N", "E"]);
+  selectEnter();
+
+  const wrongLetterTile = screen.getByTestId(`board-row-0-tile-0`);
+  expect(wrongLetterTile).toHaveStyle({
+    "background-color": colours.orange,
+    color: colours.white,
+  });
+
+  const correctLetterTile = screen.getByTestId(`board-row-0-tile-2`);
+  expect(correctLetterTile).toHaveStyle({
+    "background-color": colours.green,
+    color: colours.white,
+  });
 });
