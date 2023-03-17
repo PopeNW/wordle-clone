@@ -70,32 +70,16 @@ const App = ({ wordle }: AppProps) => {
     const lastTile = boardState[currentRow].length - 1;
 
     if (boardState[currentRow][lastTile].letter) {
-      updateRowStatus();
+      updateRowState();
       setCurrentRow(currentRow + 1);
       setCurrentColumn(0);
     }
   };
 
-  const updateTileStatus = (tile: TileState, index: number) => {
-    if (wordle.charAt(index) === tile.letter) {
-      return { ...tile, status: TileStatus.CORRECT_SPOT };
-    }
-
-    /* 
-      This check needs to take into account other letters 
-      in the correct placement already.
-    */
-    if (wordle.includes(tile.letter)) {
-      return { ...tile, status: TileStatus.WRONG_SPOT };
-    }
-
-    return { ...tile, status: TileStatus.NOT_IN_WORD };
-  };
-
-  const updateRowStatus = () => {
-    const completedRow = boardState[currentRow];
-    const newRowState = completedRow.map((tile, index) =>
-      updateTileStatus(tile, index)
+  const updateRowState = () => {
+    const rowState = boardState[currentRow];
+    const newRowState = rowState.map((tile, index) =>
+      updateTileState(tile, index)
     );
 
     setBoardState(() => {
@@ -103,6 +87,18 @@ const App = ({ wordle }: AppProps) => {
       newBoardState[currentRow] = newRowState;
       return newBoardState;
     });
+  };
+
+  const updateTileState = (tile: TileState, index: number) => {
+    if (wordle.charAt(index) === tile.letter) {
+      return { ...tile, status: TileStatus.CORRECT_SPOT };
+    }
+
+    if (wordle.includes(tile.letter)) {
+      return { ...tile, status: TileStatus.WRONG_SPOT };
+    }
+
+    return { ...tile, status: TileStatus.NOT_IN_WORD };
   };
 
   return (
