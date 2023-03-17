@@ -3,7 +3,7 @@ import { selectCharacters } from "../helpers/keyboard-input";
 import App from "../../app";
 
 test("should render characters in first row tiles in the correct order", () => {
-  render(<App />);
+  render(<App wordle="DUCKS" />);
 
   const chars = ["Q", "W", "E", "R", "T"];
 

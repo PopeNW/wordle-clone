@@ -4,7 +4,7 @@ import App from "../../app";
 import colours from "../../constants/colours";
 
 test("should render a green tile when letter is in the word and in the correct spot", () => {
-  render(<App />);
+  render(<App wordle="DUCKS" />);
 
   selectCharacters(["D", "U", "C", "K", "S"]);
   selectEnter();
@@ -17,7 +17,7 @@ test("should render a green tile when letter is in the word and in the correct s
 });
 
 test("should render a yellow tile when letter is in the word but in the wrong spot", () => {
-  render(<App />);
+  render(<App wordle="DUCKS" />);
 
   selectCharacters(["U", "N", "D", "E", "R"]);
   selectEnter();
@@ -29,8 +29,8 @@ test("should render a yellow tile when letter is in the word but in the wrong sp
   });
 });
 
-test("should render a grey tile when letter is not in the word in any spot", () => {
-  render(<App />);
+test("renders a grey tile if letter is not in the word", () => {
+  render(<App wordle="DUCKS" />);
 
   selectCharacters(["G", "O", "O", "S", "E"]);
   selectEnter();
@@ -42,8 +42,8 @@ test("should render a grey tile when letter is not in the word in any spot", () 
   });
 });
 
-test("should render a grey tile if the same letter is already in the correct spot", () => {
-  render(<App />);
+test("renders a grey tile if the same letter is already in the correct spot", () => {
+  render(<App wordle="DUCKS" />);
 
   selectCharacters(["S", "O", "C", "K", "S"]);
   selectEnter();
@@ -53,4 +53,8 @@ test("should render a grey tile if the same letter is already in the correct spo
     "background-color": colours.grey,
     color: colours.white,
   });
+});
+
+test("renders a yellow tile if a letter is in the wrong spot and the same letter is in the correct spot", () => {
+  // TODO: This needs to test a word with a duplicate letter
 });

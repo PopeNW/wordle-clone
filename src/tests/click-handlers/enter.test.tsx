@@ -3,7 +3,7 @@ import { selectCharacters, selectEnter } from "../helpers/keyboard-input";
 import App from "../../app";
 
 test("should render characters on next row when clicking ENTER button on a filled row", () => {
-  render(<App />);
+  render(<App wordle="DUCKS" />);
 
   const chars = ["Q", "W", "E", "R", "T"];
 
@@ -18,7 +18,7 @@ test("should render characters on next row when clicking ENTER button on a fille
 });
 
 test("should not render characters on next row when clicking ENTER button on an unfilled row", () => {
-  render(<App />);
+  render(<App wordle="DUCKS" />);
 
   const char = "Q";
 

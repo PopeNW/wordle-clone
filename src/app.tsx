@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Keyboard from "./components/keyboard";
 import Board from "./components/board";
 import { TileStatus } from "./constants/enums";
-import getWordle from "./get-wordle";
 import { initialiseBoard } from "./util/initialise-board";
 
 const StyledApp = styled.div`
@@ -23,8 +22,7 @@ const StyledTitle = styled.h1`
   margin: 0 auto;
 `;
 
-const App = () => {
-  const [wordle] = useState(getWordle());
+const App = ({ wordle }: AppProps) => {
   const [boardState, setBoardState] = useState<BoardState>(initialiseBoard());
   const [currentRow, setCurrentRow] = useState(0);
   const [currentColumn, setCurrentColumn] = useState(0);
@@ -83,7 +81,10 @@ const App = () => {
       return { ...tile, status: TileStatus.CORRECT_SPOT };
     }
 
-    // This check needs to take into account other letters in the correct placement already
+    /* 
+      This check needs to take into account other letters 
+      in the correct placement already.
+    */
     if (wordle.includes(tile.letter)) {
       return { ...tile, status: TileStatus.WRONG_SPOT };
     }
