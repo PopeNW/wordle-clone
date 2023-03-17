@@ -77,29 +77,55 @@ const App = ({ wordle }: AppProps) => {
   };
 
   const updateRowState = () => {
-    const rowState = boardState[currentRow];
-    const newRowState = rowState.map((tile, index) =>
-      updateTileState(tile, index)
+    const withCorrectSpotStatuses = boardState[currentRow].map((tile, index) =>
+      wordle.charAt(index) === tile.letter
+        ? { ...tile, status: TileStatus.CORRECT_SPOT }
+        : tile
+    );
+
+    const withWrongSpotStatuses = withCorrectSpotStatuses.map(
+      (tile, _index, row) => {
+        if (wordle.includes(tile.letter) && tile.status === TileStatus.UNSET) {
+          const duplicateLetters = row.filter(
+            (value) =>
+              value.letter === tile.letter && value.status === TileStatus.UNSET
+          );
+
+          console.log(duplicateLetters);
+
+          if (duplicateLetters.length) {
+            return { ...tile, status: TileStatus.WRONG_SPOT };
+          }
+        }
+
+        return tile;
+      }
+    );
+
+    const withNotInWordStatuses = withWrongSpotStatuses.map((tile) =>
+      tile.status === TileStatus.UNSET
+        ? { ...tile, status: TileStatus.NOT_IN_WORD }
+        : tile
     );
 
     setBoardState(() => {
       const newBoardState = boardState;
-      newBoardState[currentRow] = newRowState;
+      newBoardState[currentRow] = withNotInWordStatuses;
       return newBoardState;
     });
   };
 
-  const updateTileState = (tile: TileState, index: number) => {
-    if (wordle.charAt(index) === tile.letter) {
-      return { ...tile, status: TileStatus.CORRECT_SPOT };
-    }
+  // const updateTileState = (tile: TileState, index: number) => {
+  //   if (wordle.charAt(index) === tile.letter) {
+  //     return { ...tile, status: TileStatus.CORRECT_SPOT };
+  //   }
 
-    if (wordle.includes(tile.letter)) {
-      return { ...tile, status: TileStatus.WRONG_SPOT };
-    }
+  //   if (wordle.includes(tile.letter)) {
+  //     return { ...tile, status: TileStatus.WRONG_SPOT };
+  //   }
 
-    return { ...tile, status: TileStatus.NOT_IN_WORD };
-  };
+  //   return { ...tile, status: TileStatus.NOT_IN_WORD };
+  // };
 
   return (
     <StyledApp>
