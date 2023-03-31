@@ -77,18 +77,23 @@ const App = ({ wordle }: AppProps) => {
   };
 
   const updateRowState = () => {
-    const withCorrectSpotStatuses = boardState[currentRow].map((tile, index) =>
-      wordle.charAt(index) === tile.letter
-        ? { ...tile, status: TileStatus.CORRECT_SPOT }
-        : tile
+    const withCorrectSpotStatuses = boardState[currentRow].map(
+      (tile, index) => {
+        if (tile.letter === wordle.charAt(index)) {
+          return { ...tile, status: TileStatus.CORRECT_SPOT };
+        }
+
+        return tile;
+      }
     );
 
     const withWrongSpotStatuses = withCorrectSpotStatuses.map(
       (tile, _index, row) => {
-        if (wordle.includes(tile.letter) && tile.status === TileStatus.UNSET) {
+        if (tile.status !== TileStatus.UNSET) return tile;
+
+        if (wordle.includes(tile.letter)) {
           const duplicateLetters = row.filter(
-            (value) =>
-              value.letter === tile.letter && value.status === TileStatus.UNSET
+            (t, i) => t.letter === tile.letter && t.status === TileStatus.UNSET
           );
 
           console.log(duplicateLetters);
@@ -102,11 +107,13 @@ const App = ({ wordle }: AppProps) => {
       }
     );
 
-    const withNotInWordStatuses = withWrongSpotStatuses.map((tile) =>
-      tile.status === TileStatus.UNSET
-        ? { ...tile, status: TileStatus.NOT_IN_WORD }
-        : tile
-    );
+    const withNotInWordStatuses = withWrongSpotStatuses.map((tile) => {
+      if (tile.status === TileStatus.UNSET) {
+        return { ...tile, status: TileStatus.NOT_IN_WORD };
+      }
+
+      return tile;
+    });
 
     setBoardState(() => {
       const newBoardState = boardState;

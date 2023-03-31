@@ -73,3 +73,23 @@ test("renders a yellow tile if a letter is in the wrong spot and the same letter
     color: colours.white,
   });
 });
+
+test("renders one yellow tile if same letter guessed twice but only one is in the word", () => {
+  render(<App wordle="GOOSE" />);
+
+  selectCharacters(["S", "O", "C", "K", "S"]);
+  selectEnter();
+
+  const firstTile = screen.getByTestId("board-row-0-tile-0");
+  const lastTile = screen.getByTestId("board-row-0-tile-4");
+
+  expect(firstTile).toHaveStyle({
+    "background-color": colours.orange,
+    color: colours.white,
+  });
+
+  expect(lastTile).toHaveStyle({
+    "background-color": colours.grey,
+    color: colours.white,
+  });
+});
