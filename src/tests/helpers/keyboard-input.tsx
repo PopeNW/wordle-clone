@@ -1,10 +1,9 @@
-import { screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { fireEvent, screen } from "@testing-library/react";
 
 const selectCharacters = (chars: string[]) => {
   chars.forEach((char) => {
     const buttonElement = screen.getByText(char, { selector: "button" });
-    userEvent.click(buttonElement);
+    fireEvent.click(buttonElement);
   });
 };
 
@@ -12,14 +11,14 @@ const selectEnter = () => {
   const enterButtonElement = screen.getByText("ENTER", {
     selector: "button",
   });
-  userEvent.click(enterButtonElement);
+  fireEvent.click(enterButtonElement);
 };
 
 const selectBackspace = () => {
   const backspaceButtonElement = screen.getByText("BACKSPACE", {
     selector: "button",
   });
-  userEvent.click(backspaceButtonElement);
+  fireEvent.click(backspaceButtonElement);
 };
 
 export { selectCharacters, selectEnter, selectBackspace };
