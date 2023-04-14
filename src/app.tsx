@@ -43,7 +43,7 @@ const App = ({ wordle }: AppProps) => {
   };
 
   const handleAlphabeticalKey = (selectedKey: string) => {
-    if (!boardState[currentRow][currentColumn].letter) {
+    if (boardState[currentRow][currentColumn]?.letter !== undefined) {
       setBoardState(() => {
         const newBoardState: BoardState = [...boardState];
         newBoardState[currentRow][currentColumn].letter = selectedKey;
