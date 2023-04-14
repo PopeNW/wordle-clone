@@ -27,6 +27,10 @@ const App = ({ wordle }: AppProps) => {
   const [currentRow, setCurrentRow] = useState(0);
   const [currentColumn, setCurrentColumn] = useState(0);
 
+  // useEffect(() => document.addEventListener("keydown", keyDownHandler, true));
+
+  // const keyDownHandler = (e: KeyboardEvent) => clickHandler(e.key);
+
   const clickHandler = (selectedKey: string) => {
     switch (selectedKey) {
       case "ENTER":
@@ -46,7 +50,7 @@ const App = ({ wordle }: AppProps) => {
         return newBoardState;
       });
 
-      if (currentColumn <= 4) {
+      if (currentColumn < 4) {
         setCurrentColumn(currentColumn + 1);
       }
     }
