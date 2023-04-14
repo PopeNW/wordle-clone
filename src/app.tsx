@@ -50,7 +50,7 @@ const App = ({ wordle }: AppProps) => {
         return newBoardState;
       });
 
-      if (currentColumn < 4) {
+      if (currentColumn <= 4) {
         setCurrentColumn(currentColumn + 1);
       }
     }
