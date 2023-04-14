@@ -48,7 +48,7 @@ const App = ({ wordle }: AppProps) => {
       case "ENTER":
         return handleEnterKey();
       case "BACKSPACE":
-        return handleBackspace();
+        return handleBackspaceKey();
       default:
         return handleAlphabeticalKey(key);
     }
@@ -68,7 +68,7 @@ const App = ({ wordle }: AppProps) => {
     }
   };
 
-  const handleBackspace = () => {
+  const handleBackspaceKey = () => {
     if (currentColumn > 0) {
       const newCurrentColumn = currentColumn - 1;
 
