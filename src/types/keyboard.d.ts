@@ -1,15 +1,10 @@
-interface KeyboardKey {
-  key: string;
-  code: string;
-}
-
 interface KeyboardKeyProps {
-  keyboardKey: KeyboardKey;
+  keyboardKey: string;
   clickHandler: Function;
 }
 
 interface KeyboardRowProps {
-  keyboardRow: Array<KeyboardKey>;
+  keyboardRow: Array<string>;
   clickHandler: Function;
 }
 

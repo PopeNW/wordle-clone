@@ -10,7 +10,7 @@ const RowWrapper = styled.div`
   justify-content: center;
 `;
 
-const KeyWrapper = styled.button`
+const Key = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,23 +31,13 @@ const KeyWrapper = styled.button`
   cursor: pointer;
 `;
 
-const Key = ({ keyboardKey, clickHandler }: KeyboardKeyProps) => {
-  return (
-    <KeyWrapper onClick={() => clickHandler(keyboardKey.key)}>
-      {keyboardKey.key}
-    </KeyWrapper>
-  );
-};
-
 const Row = ({ keyboardRow, clickHandler }: KeyboardRowProps) => {
   return (
     <RowWrapper>
       {keyboardRow.map((keyboardKey, index) => (
-        <Key
-          key={index}
-          keyboardKey={keyboardKey}
-          clickHandler={clickHandler}
-        />
+        <Key key={index} onClick={() => clickHandler(keyboardKey)}>
+          {keyboardKey}
+        </Key>
       ))}
     </RowWrapper>
   );

@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Keyboard from "./components/keyboard";
 import Board from "./components/board";
 import { TileStatus } from "./constants/enums";
 import { initialiseBoard } from "./util/initialise-board";
+import keyboard from "./constants/keyboard";
 
 const StyledApp = styled.div`
   display: block;
@@ -27,18 +28,29 @@ const App = ({ wordle }: AppProps) => {
   const [currentRow, setCurrentRow] = useState(0);
   const [currentColumn, setCurrentColumn] = useState(0);
 
-  // useEffect(() => document.addEventListener("keydown", keyDownHandler, true));
+  useEffect(() => {
+    window.addEventListener("keydown", keyDownHandler);
+    return () => window.removeEventListener("keydown", keyDownHandler);
+  });
 
-  // const keyDownHandler = (e: KeyboardEvent) => clickHandler(e.key);
+  const keyDownHandler = (e: KeyboardEvent) => {
+    const key = e.key.toUpperCase();
 
-  const clickHandler = (selectedKey: string) => {
-    switch (selectedKey) {
+    keyboard.forEach((keyboardRow) => {
+      if (keyboardRow.some((keyboardKey) => keyboardKey === key)) {
+        return clickHandler(key);
+      }
+    });
+  };
+
+  const clickHandler = (key: string) => {
+    switch (key) {
       case "ENTER":
         return handleEnterKey();
       case "BACKSPACE":
         return handleBackspace();
       default:
-        return handleAlphabeticalKey(selectedKey);
+        return handleAlphabeticalKey(key);
     }
   };
 
