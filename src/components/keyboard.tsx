@@ -1,4 +1,5 @@
 import styled from "styled-components";
+// import { useEffect } from "react";
 
 const KeyboardWrapper = styled.div`
   display: grid;
@@ -9,7 +10,7 @@ const RowWrapper = styled.div`
   justify-content: center;
 `;
 
-const Key = styled.button`
+const KeyWrapper = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,13 +31,28 @@ const Key = styled.button`
   cursor: pointer;
 `;
 
-const Row = ({ row, clickHandler }: KeyboardRowProps) => {
+const Key = ({ keyboardKey, clickHandler }: KeyboardKeyProps) => {
+  // useEffect(() => document.addEventListener("keydown", keyDownHandler, true));
+
+  // const keyDownHandler = (e: KeyboardEvent) =>
+  //   e.code === keyboardKey.code && clickHandler(keyboardKey.key);
+
+  return (
+    <KeyWrapper onClick={() => clickHandler(keyboardKey.key)}>
+      {keyboardKey.key}
+    </KeyWrapper>
+  );
+};
+
+const Row = ({ keyboardRow, clickHandler }: KeyboardRowProps) => {
   return (
     <RowWrapper>
-      {row.map((keyText, index) => (
-        <Key key={index} onClick={() => clickHandler(keyText)}>
-          {keyText}
-        </Key>
+      {keyboardRow.map((keyboardKey, index) => (
+        <Key
+          key={index}
+          keyboardKey={keyboardKey}
+          clickHandler={clickHandler}
+        />
       ))}
     </RowWrapper>
   );
@@ -44,15 +60,46 @@ const Row = ({ row, clickHandler }: KeyboardRowProps) => {
 
 const Keyboard = ({ clickHandler }: KeyboardProps) => {
   const keyboardValues = [
-    ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
-    ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
-    ["ENTER", "Z", "X", "C", "V", "B", "N", "M", "BACKSPACE"],
+    [
+      { key: "Q", code: "KeyQ" },
+      { key: "W", code: "KeyW" },
+      { key: "E", code: "KeyE" },
+      { key: "R", code: "KeyR" },
+      { key: "T", code: "KeyT" },
+      { key: "Y", code: "KeyY" },
+      { key: "U", code: "KeyU" },
+      { key: "I", code: "KeyI" },
+      { key: "O", code: "KeyO" },
+      { key: "P", code: "KeyP" },
+    ],
+    [
+      { key: "A", code: "KeyA" },
+      { key: "S", code: "KeyS" },
+      { key: "D", code: "KeyD" },
+      { key: "F", code: "KeyF" },
+      { key: "G", code: "KeyG" },
+      { key: "H", code: "KeyH" },
+      { key: "J", code: "KeyJ" },
+      { key: "K", code: "KeyK" },
+      { key: "L", code: "KeyL" },
+    ],
+    [
+      { key: "ENTER", code: "Enter" },
+      { key: "Z", code: "KeyZ" },
+      { key: "X", code: "KeyX" },
+      { key: "C", code: "KeyC" },
+      { key: "V", code: "KeyV" },
+      { key: "B", code: "KeyB" },
+      { key: "N", code: "KeyN" },
+      { key: "M", code: "KeyM" },
+      { key: "BACKSPACE", code: "Backspace" },
+    ],
   ];
 
   return (
     <KeyboardWrapper>
       {keyboardValues.map((row, index) => (
-        <Row key={index} row={row} clickHandler={clickHandler} />
+        <Row key={index} keyboardRow={row} clickHandler={clickHandler} />
       ))}
     </KeyboardWrapper>
   );
