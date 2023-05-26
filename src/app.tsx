@@ -79,25 +79,28 @@ const App = ({ wordle }: AppProps) => {
   const updateRowState = () => {
     const withCorrectSpotTiles = boardState[currentRow].map((tile, index) => {
       const isCorrectSpot = tile.letter === wordle.charAt(index);
+
       return isCorrectSpot
         ? { ...tile, status: TileStatus.CORRECT_SPOT }
         : tile;
     });
 
-    const withNotInWordTiles = withCorrectSpotTiles.map((tile) => {
-      const isNotInWord = !wordle.includes(tile.letter);
-      return isNotInWord ? { ...tile, status: TileStatus.NOT_IN_WORD } : tile;
-    });
-
-    const withWrongSpotTiles = withNotInWordTiles.map((tile, _index, row) => {
+    const withWrongSpotTiles = withCorrectSpotTiles.map((tile, index, row) => {
       if (tile.status !== TileStatus.UNSET) return tile;
 
       if (wordle.includes(tile.letter)) {
-        const duplicateLetters = row.filter(
-          (t, _i) => t.letter === tile.letter && t.status === TileStatus.UNSET
-        );
+        const duplicateLetters = row.filter((t, i) => {
+          // const isNotCurrentTile = i !== index;
+          const isUnsetTile = t.status === TileStatus.UNSET;
+          const isDuplicateLetter = t.letter === tile.letter;
 
-        console.log(duplicateLetters);
+          return /** isNotCurrentTile && */ isUnsetTile && isDuplicateLetter;
+        });
+
+        // console.log("Duplicate letters: ", duplicateLetters);
+
+        // const wordleArray = [...wordle];
+        // console.log("Wordle as array: ", wordleArray);
 
         if (duplicateLetters.length) {
           return { ...tile, status: TileStatus.WRONG_SPOT };
@@ -107,9 +110,19 @@ const App = ({ wordle }: AppProps) => {
       return tile;
     });
 
+    const withNotInWordTiles = withWrongSpotTiles.map((tile) => {
+      const isNotInWord = !wordle.includes(tile.letter);
+      const isUnset = tile.status === TileStatus.UNSET;
+
+      return isNotInWord || isUnset
+        ? { ...tile, status: TileStatus.NOT_IN_WORD }
+        : tile;
+    });
+
     setBoardState(() => {
       const newBoardState = boardState;
-      newBoardState[currentRow] = withWrongSpotTiles;
+      newBoardState[currentRow] = withNotInWordTiles;
+
       return newBoardState;
     });
   };
