@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import Keyboard from "./components/keyboard";
-import Board from "./components/board";
+import { Board, Keyboard } from "./components";
 import { keyboard, TileStatus } from "./constants";
 import { initialiseBoard } from "./utils";
 import {
