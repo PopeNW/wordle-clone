@@ -89,25 +89,23 @@ const App = ({ wordle }: AppProps) => {
       return isNotInWord ? { ...tile, status: TileStatus.NOT_IN_WORD } : tile;
     });
 
-    const withWrongSpotTiles = withNotInWordTiles.map(
-      (tile, _index, row) => {
-        if (tile.status !== TileStatus.UNSET) return tile;
+    const withWrongSpotTiles = withNotInWordTiles.map((tile, _index, row) => {
+      if (tile.status !== TileStatus.UNSET) return tile;
 
-        if (wordle.includes(tile.letter)) {
-          const duplicateLetters = row.filter(
-            (t, _i) => t.letter === tile.letter && t.status === TileStatus.UNSET
-          );
+      if (wordle.includes(tile.letter)) {
+        const duplicateLetters = row.filter(
+          (t, _i) => t.letter === tile.letter && t.status === TileStatus.UNSET
+        );
 
-          console.log(duplicateLetters);
+        console.log(duplicateLetters);
 
-          if (duplicateLetters.length) {
-            return { ...tile, status: TileStatus.WRONG_SPOT };
-          }
+        if (duplicateLetters.length) {
+          return { ...tile, status: TileStatus.WRONG_SPOT };
         }
-
-        return tile;
       }
-    );
+
+      return tile;
+    });
 
     setBoardState(() => {
       const newBoardState = boardState;
