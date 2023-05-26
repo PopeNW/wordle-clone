@@ -4,4 +4,4 @@ const keyboard = [
   ["ENTER", "Z", "X", "C", "V", "B", "N", "M", "BACKSPACE"],
 ];
 
-export default keyboard;
+export { keyboard };

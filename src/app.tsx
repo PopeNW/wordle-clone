@@ -2,9 +2,14 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Keyboard from "./components/keyboard";
 import Board from "./components/board";
-import { TileStatus } from "./constants/enums";
+import { keyboard } from "./constants";
+import { TileStatus } from "./constants";
 import { initialiseBoard } from "./utils";
-import keyboard from "./constants/keyboard";
+import {
+  handleEnterKey,
+  handleBackspaceKey,
+  handleAlphabeticalKey,
+} from "./handlers";
 
 const StyledApp = styled.div`
   display: block;
@@ -46,49 +51,30 @@ const App = ({ wordle }: AppProps) => {
   const clickHandler = (key: string) => {
     switch (key) {
       case "ENTER":
-        return handleEnterKey();
+        return handleEnterKey(
+          boardState,
+          currentRow,
+          updateRowState,
+          setCurrentRow,
+          setCurrentColumn
+        );
       case "BACKSPACE":
-        return handleBackspaceKey();
+        return handleBackspaceKey(
+          boardState,
+          currentRow,
+          currentColumn,
+          setBoardState,
+          setCurrentColumn
+        );
       default:
-        return handleAlphabeticalKey(key);
-    }
-  };
-
-  const handleAlphabeticalKey = (selectedKey: string) => {
-    if (boardState[currentRow][currentColumn]?.letter !== undefined) {
-      setBoardState(() => {
-        const newBoardState: BoardState = [...boardState];
-        newBoardState[currentRow][currentColumn].letter = selectedKey;
-        return newBoardState;
-      });
-
-      if (currentColumn <= 4) {
-        setCurrentColumn(currentColumn + 1);
-      }
-    }
-  };
-
-  const handleBackspaceKey = () => {
-    if (currentColumn > 0) {
-      const newCurrentColumn = currentColumn - 1;
-
-      setBoardState(() => {
-        const newBoardState: BoardState = [...boardState];
-        newBoardState[currentRow][newCurrentColumn].letter = "";
-        return newBoardState;
-      });
-
-      setCurrentColumn(newCurrentColumn);
-    }
-  };
-
-  const handleEnterKey = () => {
-    const lastTile = boardState[currentRow].length - 1;
-
-    if (boardState[currentRow][lastTile].letter) {
-      updateRowState();
-      setCurrentRow(currentRow + 1);
-      setCurrentColumn(0);
+        return handleAlphabeticalKey(
+          key,
+          boardState,
+          currentRow,
+          currentColumn,
+          setBoardState,
+          setCurrentColumn
+        );
     }
   };
 
@@ -137,18 +123,6 @@ const App = ({ wordle }: AppProps) => {
       return newBoardState;
     });
   };
-
-  // const updateTileState = (tile: TileState, index: number) => {
-  //   if (wordle.charAt(index) === tile.letter) {
-  //     return { ...tile, status: TileStatus.CORRECT_SPOT };
-  //   }
-
-  //   if (wordle.includes(tile.letter)) {
-  //     return { ...tile, status: TileStatus.WRONG_SPOT };
-  //   }
-
-  //   return { ...tile, status: TileStatus.NOT_IN_WORD };
-  // };
 
   return (
     <StyledApp>
