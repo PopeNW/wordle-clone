@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Keyboard from "./components/keyboard";
 import Board from "./components/board";
 import { TileStatus } from "./constants/enums";
-import { initialiseBoard } from "./util/initialise-board";
+import { initialiseBoard } from "./utils";
 import keyboard from "./constants/keyboard";
 
 const StyledApp = styled.div`
