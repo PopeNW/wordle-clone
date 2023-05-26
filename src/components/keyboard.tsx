@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import keyboard from "../constants/keyboard";
+import { keyboard } from "../constants";
 
 const KeyboardWrapper = styled.div`
   display: grid;

@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Keyboard from "./components/keyboard";
 import Board from "./components/board";
-import { keyboard } from "./constants";
-import { TileStatus } from "./constants";
+import { keyboard, TileStatus } from "./constants";
 import { initialiseBoard } from "./utils";
 import {
   handleEnterKey,

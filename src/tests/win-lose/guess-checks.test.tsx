@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { selectCharacters, selectEnter } from "../helpers/keyboard-input";
 import App from "../../app";
-import colours from "../../constants/colours";
+import { colours } from "../../constants";
 
 test("should render a green tile when letter is in the word and in the correct spot", () => {
   render(<App wordle="DUCKS" />);

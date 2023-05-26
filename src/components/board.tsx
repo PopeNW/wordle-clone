@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { TileStatus } from "../constants/enums";
-import colours from "../constants/colours";
+import { colours, TileStatus } from "../constants";
 
 const BoardWrapper = styled.div`
   display: grid;
