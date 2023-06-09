@@ -130,7 +130,7 @@ const App = ({ wordle }: AppProps) => {
   return (
     <StyledApp>
       <StyledHeader>
-        <StyledTitle>Wordle</StyledTitle>
+        <StyledTitle>Nathan's Wordle</StyledTitle>
       </StyledHeader>
       <Board boardState={boardState} />
       <Keyboard clickHandler={clickHandler} />
