@@ -77,51 +77,64 @@ const App = ({ wordle }: AppProps) => {
   };
 
   const updateRowState = () => {
-    const withCorrectSpotTiles = boardState[currentRow].map((tile, index) => {
-      const isCorrectSpot = tile.letter === wordle.charAt(index);
-
-      return isCorrectSpot
+    const withCorrectSpot = boardState[currentRow].map((tile, index) =>
+      tile.letter === wordle.charAt(index)
         ? { ...tile, status: TileStatus.CORRECT_SPOT }
-        : tile;
-    });
+        : tile
+    );
 
-    const withWrongSpotTiles = withCorrectSpotTiles.map((tile, index, row) => {
+    const withNotInWord = withCorrectSpot.map((tile) =>
+      !wordle.includes(tile.letter)
+        ? { ...tile, status: TileStatus.NOT_IN_WORD }
+        : tile
+    );
+
+    const withWrongSpot = withNotInWord.map((tile, index, row) => {
       if (tile.status !== TileStatus.UNSET) return tile;
 
-      if (wordle.includes(tile.letter)) {
-        const duplicateLetters = row.filter((t, i) => {
-          // const isNotCurrentTile = i !== index;
-          const isUnsetTile = t.status === TileStatus.UNSET;
-          const isDuplicateLetter = t.letter === tile.letter;
+      const countOccurences = () => {
+        let count = 0;
+        [...wordle].forEach((letter) => letter === tile.letter && count++);
+        return count;
+      };
 
-          return /** isNotCurrentTile && */ isUnsetTile && isDuplicateLetter;
-        });
+      const countCorrectSpotOccurences = () => {
+        let count = 0;
+        row.forEach(
+          (t, i) =>
+            i !== index &&
+            t.letter === tile.letter &&
+            t.status === TileStatus.CORRECT_SPOT &&
+            count++
+        );
+        return count;
+      };
 
-        // console.log("Duplicate letters: ", duplicateLetters);
+      const countWrongSpotOccurences = () => {
+        let count = 0;
+        row.forEach(
+          (t, i) =>
+            i !== index &&
+            t.letter === tile.letter &&
+            t.status === TileStatus.WRONG_SPOT &&
+            count++
+        );
+        return count;
+      };
 
-        // const wordleArray = [...wordle];
-        // console.log("Wordle as array: ", wordleArray);
+      const occurencesCount = countOccurences();
+      const correctSpotCount = countCorrectSpotOccurences();
+      const wrongSpotCount = countWrongSpotOccurences();
+      const unsetCount = occurencesCount - correctSpotCount - wrongSpotCount;
 
-        if (duplicateLetters.length) {
-          return { ...tile, status: TileStatus.WRONG_SPOT };
-        }
-      }
-
-      return tile;
-    });
-
-    const withNotInWordTiles = withWrongSpotTiles.map((tile) => {
-      const isNotInWord = !wordle.includes(tile.letter);
-      const isUnset = tile.status === TileStatus.UNSET;
-
-      return isNotInWord || isUnset
-        ? { ...tile, status: TileStatus.NOT_IN_WORD }
-        : tile;
+      return unsetCount
+        ? (row[index] = { ...tile, status: TileStatus.WRONG_SPOT })
+        : (row[index] = { ...tile, status: TileStatus.NOT_IN_WORD });
     });
 
     setBoardState(() => {
       const newBoardState = boardState;
-      newBoardState[currentRow] = withNotInWordTiles;
+      newBoardState[currentRow] = withWrongSpot;
 
       return newBoardState;
     });
