@@ -38,7 +38,6 @@ const App = ({ wordle }: AppProps) => {
 
   const keyDownHandler = (e: KeyboardEvent) => {
     const key = e.key.toUpperCase();
-
     keyboard.forEach((keyboardRow) => {
       if (keyboardRow.some((keyboardKey) => keyboardKey === key)) {
         return clickHandler(key);
@@ -135,7 +134,6 @@ const App = ({ wordle }: AppProps) => {
     setBoardState(() => {
       const newBoardState = boardState;
       newBoardState[currentRow] = withWrongSpot;
-
       return newBoardState;
     });
   };
