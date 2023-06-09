@@ -29,11 +29,6 @@ test("Not in the word: renders a grey tile when letter is not in the word", () =
   });
 });
 
-/**
- * One letter, wrong spot (one instance of letter in word)
- * If there is a single instance of the letter 'S' in a word and the user guesses the letter 'S'
- * in the wrong spot then the 'S' in the wrong spot will be yellow.
- */
 test("Wrong spot: One letter, wrong spot (one instance of letter in word)", () => {
   render(<App wordle="DUCKS" />);
 
@@ -47,12 +42,6 @@ test("Wrong spot: One letter, wrong spot (one instance of letter in word)", () =
   });
 });
 
-/**
- * Two letters, both wrong spot (one instance of letter in word)
- * If there are two instances of the letter guessed but both are in the wrong spot,
- * and there is only one correct placement for the letter then the first wrong letter
- * will be yellow and the second will be grey (reading from left to right).
- */
 test("Wrong spot: Two letters, both wrong spot (one instance of letter in word)", () => {
   render(<App wordle="GOOSE" />);
 
@@ -72,10 +61,6 @@ test("Wrong spot: Two letters, both wrong spot (one instance of letter in word)"
   });
 });
 
-/**
- * Two letters, one correct spot and one wrong spot (one instance of letter in word)
- * Wrong spot letter should be grey as there are no other instances of this letter in the word.
- */
 test("Wrong spot: Two letters, one correct spot and one wrong spot (one instance of letter in word)", () => {
   render(<App wordle="DUCKS" />);
 
@@ -95,10 +80,6 @@ test("Wrong spot: Two letters, one correct spot and one wrong spot (one instance
   });
 });
 
-/**
- * Two letters, both wrong spot (two instances of letter in word)
- * Both yellow as there are two available instances of this letter in the word.
- */
 test("Wrong spot: Two letters, both wrong spot (two instances of letter in word)", () => {
   render(<App wordle="DONOR" />);
 
@@ -118,11 +99,6 @@ test("Wrong spot: Two letters, both wrong spot (two instances of letter in word)
   });
 });
 
-/**
- * Two letters, one wrong and one correct spot (two instances of letter in word)
- * Wrong spot letters should be yellow as there is still an available instance of
- * this letter in the word.
- */
 test("Wrong spot: Two letters, one wrong and one correct spot (two instances of letter in word)", () => {
   render(<App wordle="GOOSE" />);
 
