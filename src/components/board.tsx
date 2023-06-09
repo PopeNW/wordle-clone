@@ -30,7 +30,7 @@ const Tile = styled.div<TileProps>`
       case TileStatus.CORRECT_SPOT:
         return `background-color: ${colours.green}; color: ${colours.white}; border-color: ${colours.green};`;
       case TileStatus.WRONG_SPOT:
-        return `background-color: ${colours.orange}; color: ${colours.white}; border-color: ${colours.orange};`;
+        return `background-color: ${colours.yellow}; color: ${colours.white}; border-color: ${colours.yellow};`;
       case TileStatus.NOT_IN_WORD:
         return `background-color: ${colours.grey}; color: ${colours.white}; border-color: ${colours.grey};`;
       default:
