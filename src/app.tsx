@@ -53,6 +53,8 @@ const App = ({ wordle }: AppProps) => {
   };
 
   const keyDownHandler = (e: KeyboardEvent) => {
+    if (gameOver) return;
+
     const key = e.key.toUpperCase();
     keyboard.forEach((keyboardRow) => {
       if (keyboardRow.some((keyboardKey) => keyboardKey === key)) {
@@ -62,6 +64,8 @@ const App = ({ wordle }: AppProps) => {
   };
 
   const clickHandler = (key: string) => {
+    if (gameOver) return;
+
     switch (key) {
       case "ENTER":
         return handleEnterKey(
