@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import styled from "styled-components";
-import { Board, Keyboard } from "./components";
+import { Board, Keyboard, Modal } from "./components";
 import { keyboard, TileStatus } from "./constants";
 import { initialiseBoard } from "./utils";
 import {
@@ -30,6 +31,7 @@ const App = ({ wordle }: AppProps) => {
   const [boardState, setBoardState] = useState<BoardState>(initialiseBoard());
   const [currentRow, setCurrentRow] = useState(0);
   const [currentColumn, setCurrentColumn] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     window.addEventListener("keydown", keyDownHandler);
@@ -142,9 +144,12 @@ const App = ({ wordle }: AppProps) => {
     <StyledApp>
       <StyledHeader>
         <StyledTitle>Nathan's Wordle</StyledTitle>
+        <button onClick={() => setShowModal(true)}>Show Modal</button>
       </StyledHeader>
       <Board boardState={boardState} />
       <Keyboard clickHandler={clickHandler} />
+      {showModal &&
+        createPortal(<Modal setShowModal={setShowModal} />, document.body)}
     </StyledApp>
   );
 };
