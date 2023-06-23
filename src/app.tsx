@@ -10,21 +10,27 @@ import {
   handleAlphabeticalKey,
 } from "./handlers";
 
-const StyledApp = styled.div`
+const AppWrapper = styled.div`
   display: block;
 `;
 
-const StyledHeader = styled.header`
+const HeaderWrapper = styled.header`
   display: flex;
   padding: 1rem;
   border-bottom: 1px solid #d3d6da;
 `;
 
-const StyledTitle = styled.h1`
+const TitleWrapper = styled.h1`
   font-family: "Times New Roman", Times, serif;
   font-weight: 700;
   color: #000000;
   margin: 0 auto;
+`;
+
+const OptionsWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
 `;
 
 const App = ({ wordle }: AppProps) => {
@@ -159,18 +165,20 @@ const App = ({ wordle }: AppProps) => {
   };
 
   return (
-    <StyledApp>
-      <StyledHeader>
-        <StyledTitle>Nathan's Wordle</StyledTitle>
-        <button onClick={() => setShowModal(true)}>Show Modal</button>
-      </StyledHeader>
+    <AppWrapper>
+      <HeaderWrapper>
+        <TitleWrapper>Nathan's Wordle</TitleWrapper>
+        <OptionsWrapper>
+          <button onClick={() => setShowModal(true)}>Show Modal</button>
+        </OptionsWrapper>
+      </HeaderWrapper>
       <Board boardState={boardState} />
       <Keyboard clickHandler={clickHandler} />
       {(gameOver &&
         createPortal(<Modal setShowModal={setShowModal} />, document.body)) ||
         (showModal &&
           createPortal(<Modal setShowModal={setShowModal} />, document.body))}
-    </StyledApp>
+    </AppWrapper>
   );
 };
 
