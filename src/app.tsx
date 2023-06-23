@@ -43,12 +43,13 @@ const App = ({ wordle }: AppProps) => {
   const isGameOver = () => {
     if (currentRow === 0) return;
 
+    const lastGuess = boardState[currentRow - 1];
     const isGameOver =
-      boardState[currentRow - 1].filter(
-        (t) => t.status === TileStatus.CORRECT_SPOT
-      ).length === boardState[currentRow - 1].length;
+      currentRow === boardState.length ||
+      lastGuess.filter((t) => t.status === TileStatus.CORRECT_SPOT).length ===
+        lastGuess.length;
 
-    setGameOver(isGameOver);
+    return setGameOver(isGameOver);
   };
 
   const keyDownHandler = (e: KeyboardEvent) => {
