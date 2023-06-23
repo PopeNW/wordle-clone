@@ -32,11 +32,24 @@ const App = ({ wordle }: AppProps) => {
   const [currentRow, setCurrentRow] = useState(0);
   const [currentColumn, setCurrentColumn] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
+    isGameOver();
     window.addEventListener("keydown", keyDownHandler);
     return () => window.removeEventListener("keydown", keyDownHandler);
   });
+
+  const isGameOver = () => {
+    if (currentRow === 0) return;
+
+    const isGameOver =
+      boardState[currentRow - 1].filter(
+        (t) => t.status === TileStatus.CORRECT_SPOT
+      ).length === boardState[currentRow - 1].length;
+
+    setGameOver(isGameOver);
+  };
 
   const keyDownHandler = (e: KeyboardEvent) => {
     const key = e.key.toUpperCase();
@@ -148,8 +161,10 @@ const App = ({ wordle }: AppProps) => {
       </StyledHeader>
       <Board boardState={boardState} />
       <Keyboard clickHandler={clickHandler} />
-      {showModal &&
-        createPortal(<Modal setShowModal={setShowModal} />, document.body)}
+      {(gameOver &&
+        createPortal(<Modal setShowModal={setShowModal} />, document.body)) ||
+        (showModal &&
+          createPortal(<Modal setShowModal={setShowModal} />, document.body))}
     </StyledApp>
   );
 };

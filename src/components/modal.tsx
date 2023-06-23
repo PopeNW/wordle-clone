@@ -29,7 +29,7 @@ const CloseButton = styled.button`
 
 const Modal = ({ setShowModal }: ModalProps) => {
   return (
-    <ModalOverlay onClick={() => setShowModal(false)}>
+    <ModalOverlay onClick={() => setShowModal(false)} data-testid="modal">
       <ModalContent>
         <h2>Lorem Ipsum</h2>
         <CloseButton onClick={() => setShowModal(false)}>Close</CloseButton>

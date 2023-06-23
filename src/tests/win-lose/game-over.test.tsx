@@ -9,6 +9,9 @@ test("game ends with win when guessing correct word", () => {
   selectEnter();
 
   // Expect game over modal with win
+  const modalElement = screen.getByTestId("modal");
+  expect(modalElement).toBeInTheDocument();
+  expect(modalElement).toHaveTextContent("Lorem Ipsum");
 });
 
 test("should handle a game loss when player runs out of guesses", () => {
