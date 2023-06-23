@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { colours } from "../constants";
 
-const ModalBackground = styled.dialog`
+const ModalOverlay = styled.dialog`
   display: flex;
   position: absolute;
   z-index: 0;
@@ -12,11 +12,14 @@ const ModalBackground = styled.dialog`
   background-color: rgba(0, 0, 0, 0.2);
 `;
 
-const ModalWrapper = styled.div`
+const ModalContent = styled.div`
   margin: auto;
   padding: 1em;
+  width: 30em;
+  height: 30em;
   background-color: white;
-  border: 1px solid black;
+  border: 1px solid ${colours.lightGrey};
+  border-radius: 8px;
 `;
 
 const CloseButton = styled.button`
@@ -26,13 +29,21 @@ const CloseButton = styled.button`
 
 const Modal = ({ setShowModal }: ModalProps) => {
   return (
-    <ModalBackground onClick={() => setShowModal(false)}>
-      <ModalWrapper>
-        <h2>Modal Title</h2>
-        <p>Modal Content</p>
+    <ModalOverlay onClick={() => setShowModal(false)}>
+      <ModalContent>
+        <h2>Lorem Ipsum</h2>
         <CloseButton onClick={() => setShowModal(false)}>Close</CloseButton>
-      </ModalWrapper>
-    </ModalBackground>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </ModalContent>
+    </ModalOverlay>
   );
 };
 
