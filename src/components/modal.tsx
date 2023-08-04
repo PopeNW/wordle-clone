@@ -22,17 +22,32 @@ const ModalContent = styled.div`
   border-radius: 8px;
 `;
 
+const ModalHeader = styled.header`
+  display: flex;
+`;
+
+const ModalTitle = styled.h2`
+  flex: auto;
+`;
+
 const CloseButton = styled.button`
-  background-color: ${colours.lightGrey};
+  background: none;
   border: none;
+  border-radius: 8px;
+  height: 2em;
+  width: 2em;
+  font-size: 1.25rem;
+  cursor: pointer;
 `;
 
 const Modal = ({ setShowModal }: ModalProps) => {
   return (
     <ModalOverlay onClick={() => setShowModal(false)} data-testid="modal">
       <ModalContent>
-        <h2>Lorem Ipsum</h2>
-        <CloseButton onClick={() => setShowModal(false)}>Close</CloseButton>
+        <ModalHeader>
+          <ModalTitle>Lorem Ipsum</ModalTitle>
+          <CloseButton onClick={() => setShowModal(false)}>x</CloseButton>
+        </ModalHeader>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad

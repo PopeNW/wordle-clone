@@ -31,6 +31,7 @@ const OptionsWrapper = styled.div`
   position: fixed;
   top: 0;
   right: 0;
+  cursor: pointer;
 `;
 
 const App = ({ wordle }: AppProps) => {
@@ -79,7 +80,7 @@ const App = ({ wordle }: AppProps) => {
           currentRow,
           updateRowState,
           setCurrentRow,
-          setCurrentColumn
+          setCurrentColumn,
         );
       case "BACKSPACE":
         return handleBackspaceKey(
@@ -87,7 +88,7 @@ const App = ({ wordle }: AppProps) => {
           currentRow,
           currentColumn,
           setBoardState,
-          setCurrentColumn
+          setCurrentColumn,
         );
       default:
         return handleAlphabeticalKey(
@@ -96,7 +97,7 @@ const App = ({ wordle }: AppProps) => {
           currentRow,
           currentColumn,
           setBoardState,
-          setCurrentColumn
+          setCurrentColumn,
         );
     }
   };
@@ -105,13 +106,13 @@ const App = ({ wordle }: AppProps) => {
     const withCorrectSpot = boardState[currentRow].map((tile, index) =>
       tile.letter === wordle.charAt(index)
         ? { ...tile, status: TileStatus.CORRECT_SPOT }
-        : tile
+        : tile,
     );
 
     const withNotInWord = withCorrectSpot.map((tile) =>
       !wordle.includes(tile.letter)
         ? { ...tile, status: TileStatus.NOT_IN_WORD }
-        : tile
+        : tile,
     );
 
     const withWrongSpot = withNotInWord.map((tile, index, row) => {
@@ -130,7 +131,7 @@ const App = ({ wordle }: AppProps) => {
             i !== index &&
             t.letter === tile.letter &&
             t.status === TileStatus.CORRECT_SPOT &&
-            count++
+            count++,
         );
         return count;
       };
@@ -142,7 +143,7 @@ const App = ({ wordle }: AppProps) => {
             i !== index &&
             t.letter === tile.letter &&
             t.status === TileStatus.WRONG_SPOT &&
-            count++
+            count++,
         );
         return count;
       };
