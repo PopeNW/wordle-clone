@@ -1,4 +1,4 @@
 interface ModalProps {
   setShowModal: Function;
-  isGameWin: boolean | null;
+  isGameWin?: boolean;
 }

@@ -43,7 +43,7 @@ const App = ({ wordle }: AppProps) => {
   const [currentColumn, setCurrentColumn] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [isGameWin, setIsGameWin] = useState<boolean | null>(null);
+  const [isGameWin, setIsGameWin] = useState<boolean>();
 
   useEffect(() => {
     isGameOver();

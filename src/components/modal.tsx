@@ -48,9 +48,9 @@ const Modal = ({ setShowModal, isGameWin }: ModalProps) => {
           <ModalTitle>Lorem Ipsum</ModalTitle>
           <CloseButton onClick={() => setShowModal(false)}>x</CloseButton>
         </ModalHeader>
-        {isGameWin === null && <p>Game in-progress</p>}
-        {isGameWin !== null && isGameWin && <p>You won!</p>}
-        {isGameWin !== null && !isGameWin && <p>You lost...</p>}
+        {isGameWin && <p>You won!</p>}
+        {isGameWin === false && <p>You lost...</p>}
+        {isGameWin === undefined && <p>Game in-progress</p>}
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
