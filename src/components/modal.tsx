@@ -40,7 +40,7 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 
-const Modal = ({ setShowModal }: ModalProps) => {
+const Modal = ({ setShowModal, isGameWin }: ModalProps) => {
   return (
     <ModalOverlay onClick={() => setShowModal(false)} data-testid="modal">
       <ModalContent>
@@ -48,6 +48,9 @@ const Modal = ({ setShowModal }: ModalProps) => {
           <ModalTitle>Lorem Ipsum</ModalTitle>
           <CloseButton onClick={() => setShowModal(false)}>x</CloseButton>
         </ModalHeader>
+        {isGameWin === null && <p>Game in-progress</p>}
+        {isGameWin !== null && isGameWin && <p>You won!</p>}
+        {isGameWin !== null && !isGameWin && <p>You lost...</p>}
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad

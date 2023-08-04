@@ -43,6 +43,7 @@ const App = ({ wordle }: AppProps) => {
   const [currentColumn, setCurrentColumn] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [isGameWin, setIsGameWin] = useState<boolean | null>(null);
 
   useEffect(() => {
     isGameOver();
@@ -54,10 +55,12 @@ const App = ({ wordle }: AppProps) => {
     if (currentRow === 0) return;
 
     const lastGuess = boardState[currentRow - 1];
-    const isGameOver =
-      currentRow === boardState.length ||
+    const isWin =
       lastGuess.filter((t) => t.status === TileStatus.CORRECT_SPOT).length ===
-        lastGuess.length;
+      lastGuess.length;
+    const isGameOver = currentRow === boardState.length || isWin;
+
+    isGameOver && setIsGameWin(isWin);
 
     return setGameOver(isGameOver);
   };
@@ -180,10 +183,12 @@ const App = ({ wordle }: AppProps) => {
       </HeaderWrapper>
       <Board boardState={boardState} />
       <Keyboard clickHandler={clickHandler} />
-      {(gameOver &&
-        createPortal(<Modal setShowModal={setShowModal} />, document.body)) ||
-        (showModal &&
-          createPortal(<Modal setShowModal={setShowModal} />, document.body))}
+      {gameOver || showModal
+        ? createPortal(
+            <Modal isGameWin={isGameWin} setShowModal={setShowModal} />,
+            document.body,
+          )
+        : null}
     </AppWrapper>
   );
 };
