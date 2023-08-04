@@ -31,6 +31,9 @@ const OptionsWrapper = styled.div`
   position: fixed;
   top: 0;
   right: 0;
+`;
+
+const ModalButton = styled.button`
   cursor: pointer;
 `;
 
@@ -170,7 +173,9 @@ const App = ({ wordle }: AppProps) => {
       <HeaderWrapper>
         <TitleWrapper>Nathan's Wordle</TitleWrapper>
         <OptionsWrapper>
-          <button onClick={() => setShowModal(true)}>Show Modal</button>
+          <ModalButton onClick={() => setShowModal(true)}>
+            Show Modal
+          </ModalButton>
         </OptionsWrapper>
       </HeaderWrapper>
       <Board boardState={boardState} />
