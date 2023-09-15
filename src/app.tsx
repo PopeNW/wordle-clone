@@ -176,16 +176,18 @@ const App = ({ wordle }: AppProps) => {
       <HeaderWrapper>
         <TitleWrapper>Nathan's Wordle</TitleWrapper>
         <OptionsWrapper>
-          <ModalButton onClick={() => setShowModal(true)}>
-            Show Modal
-          </ModalButton>
+          <ModalButton onClick={() => setShowModal(true)}>Settings</ModalButton>
         </OptionsWrapper>
       </HeaderWrapper>
       <Board boardState={boardState} />
       <Keyboard clickHandler={clickHandler} />
       {gameOver || showModal
         ? createPortal(
-            <Modal isGameWin={isGameWin} setShowModal={setShowModal} />,
+            <Modal
+              isGameWin={isGameWin}
+              setShowModal={setShowModal}
+              wordleAnswer={wordle}
+            />,
             document.body,
           )
         : null}

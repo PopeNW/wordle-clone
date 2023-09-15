@@ -40,26 +40,28 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 
-const Modal = ({ setShowModal, isGameWin }: ModalProps) => {
+const Modal = ({ setShowModal, isGameWin, wordleAnswer }: ModalProps) => {
+  const title =
+    isGameWin === undefined ? "Settings" : isGameWin ? "You won!" : "You lost.";
+
   return (
     <ModalOverlay onClick={() => setShowModal(false)} data-testid="modal">
       <ModalContent>
         <ModalHeader>
-          <ModalTitle>Lorem Ipsum</ModalTitle>
+          <ModalTitle>{title}</ModalTitle>
           <CloseButton onClick={() => setShowModal(false)}>x</CloseButton>
         </ModalHeader>
-        {isGameWin && <p>You won!</p>}
-        {isGameWin === false && <p>You lost...</p>}
+        {isGameWin && (
+          <p>
+            The answer was <b>{wordleAnswer}</b>
+          </p>
+        )}
+        {isGameWin === false && (
+          <p>
+            The answer was <b>{wordleAnswer}</b>
+          </p>
+        )}
         {isGameWin === undefined && <p>Game in-progress</p>}
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
       </ModalContent>
     </ModalOverlay>
   );
