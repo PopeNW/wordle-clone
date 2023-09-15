@@ -1,5 +1,5 @@
 import { colours } from "./colours";
 import { TileStatus } from "./enums";
-import { keyboard } from "./keyboard";
+import { keyboardRows } from "./keyboard";
 
-export { colours, TileStatus, keyboard };
+export { TileStatus, colours, keyboardRows };

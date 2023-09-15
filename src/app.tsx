@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 import { Board, Keyboard, Modal } from "./components";
-import { keyboard, TileStatus } from "./constants";
-import { initialiseBoard } from "./utils";
+import { TileStatus, keyboardRows } from "./constants";
 import {
-  handleEnterKey,
-  handleBackspaceKey,
   handleAlphabeticalKey,
+  handleBackspaceKey,
+  handleEnterKey,
 } from "./handlers";
+import { initialiseBoard } from "./utils";
 
 const AppWrapper = styled.div`
   display: block;
@@ -69,7 +69,7 @@ const App = ({ wordle }: AppProps) => {
     if (gameOver) return;
 
     const key = e.key.toUpperCase();
-    keyboard.forEach((keyboardRow) => {
+    keyboardRows.forEach((keyboardRow) => {
       if (keyboardRow.some((keyboardKey) => keyboardKey === key)) {
         return clickHandler(key);
       }

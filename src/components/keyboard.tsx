@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { keyboard } from "../constants";
+import { keyboardRows } from "../constants";
 
 const KeyboardWrapper = styled.div`
   display: grid;
@@ -46,7 +46,7 @@ const Row = ({ keyboardRow, clickHandler }: KeyboardRowProps) => {
 const Keyboard = ({ clickHandler }: KeyboardProps) => {
   return (
     <KeyboardWrapper>
-      {keyboard.map((row, index) => (
+      {keyboardRows.map((row, index) => (
         <Row key={index} keyboardRow={row} clickHandler={clickHandler} />
       ))}
     </KeyboardWrapper>

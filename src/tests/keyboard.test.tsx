@@ -1,42 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import Keyboard from "../components/keyboard";
+import { keyboardRows } from "../constants";
 
 test("should render keyboard", () => {
-  const keyboardValues = [
-    "Q",
-    "W",
-    "E",
-    "R",
-    "T",
-    "Y",
-    "U",
-    "I",
-    "O",
-    "P",
-    "A",
-    "S",
-    "D",
-    "F",
-    "G",
-    "H",
-    "J",
-    "K",
-    "L",
-    "ENTER",
-    "Z",
-    "X",
-    "C",
-    "V",
-    "B",
-    "N",
-    "M",
-    "BACKSPACE",
-  ];
+  const keyboardKeys = keyboardRows.flat(1);
 
   render(<Keyboard clickHandler={jest.fn} />);
 
-  keyboardValues.forEach((key) => {
-    const keyElement = screen.getByText(key);
+  keyboardKeys.forEach((letter) => {
+    const keyElement = screen.getByText(letter);
     expect(keyElement).toBeInTheDocument();
   });
 });
