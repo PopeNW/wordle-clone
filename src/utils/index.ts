@@ -5,7 +5,7 @@ const initialiseBoard = (): BoardState =>
     [...Array(5)].map((_tile: TileState) => ({
       letter: "",
       status: TileStatus.UNSET,
-    }))
+    })),
   );
 
 export { initialiseBoard };

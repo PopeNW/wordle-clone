@@ -4,7 +4,7 @@ const handleAlphabeticalKey = (
   currentRow: number,
   currentColumn: number,
   setBoardState: SetBoardState,
-  setCurrentColumn: SetNumberState
+  setCurrentColumn: SetNumberState,
 ) => {
   if (boardState[currentRow][currentColumn]?.letter !== undefined) {
     setBoardState(() => {
@@ -44,7 +44,7 @@ const handleEnterKey = (
   currentRow: number,
   updateRowState: VoidFunction,
   setCurrentRow: SetNumberState,
-  setCurrentColumn: SetNumberState
+  setCurrentColumn: SetNumberState,
 ) => {
   const lastTile = boardState[currentRow].length - 1;
 
