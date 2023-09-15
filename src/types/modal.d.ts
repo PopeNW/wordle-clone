@@ -1,5 +1,6 @@
+type ModalTypes = "help" | "statistics" | "settings";
+
 interface ModalProps {
   setShowModal: Function;
-  isGameWin?: boolean;
-  wordleAnswer?: string;
+  type: ModalTypes;
 }

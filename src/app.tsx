@@ -41,7 +41,7 @@ const App = ({ wordle }: AppProps) => {
   const [boardState, setBoardState] = useState<BoardState>(initialiseBoard());
   const [currentRow, setCurrentRow] = useState(0);
   const [currentColumn, setCurrentColumn] = useState(0);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState<ModalTypes | null>(null);
   const [gameOver, setGameOver] = useState(false);
   const [isGameWin, setIsGameWin] = useState<boolean>();
 
@@ -176,21 +176,22 @@ const App = ({ wordle }: AppProps) => {
       <HeaderWrapper>
         <TitleWrapper>Nathan's Wordle</TitleWrapper>
         <OptionsWrapper>
-          <ModalButton onClick={() => setShowModal(true)}>Settings</ModalButton>
+          <ModalButton onClick={() => setShowModal("help")}>Help</ModalButton>
+          <ModalButton onClick={() => setShowModal("statistics")}>
+            Statistics
+          </ModalButton>
+          <ModalButton onClick={() => setShowModal("settings")}>
+            Settings
+          </ModalButton>
         </OptionsWrapper>
       </HeaderWrapper>
       <Board boardState={boardState} />
       <Keyboard clickHandler={clickHandler} />
-      {gameOver || showModal
-        ? createPortal(
-            <Modal
-              isGameWin={isGameWin}
-              setShowModal={setShowModal}
-              wordleAnswer={wordle}
-            />,
-            document.body,
-          )
-        : null}
+      {showModal &&
+        createPortal(
+          <Modal setShowModal={setShowModal} type={showModal} />,
+          document.body,
+        )}
     </AppWrapper>
   );
 };

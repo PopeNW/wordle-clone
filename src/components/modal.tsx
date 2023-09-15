@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { colours } from "../constants";
 
@@ -40,28 +41,47 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 
-const Modal = ({ setShowModal, isGameWin, wordleAnswer }: ModalProps) => {
-  const title =
-    isGameWin === undefined ? "Settings" : isGameWin ? "You won!" : "You lost.";
+const HelpContent = () => {
+  return <p>"You wanna get nuts? Let's get nuts!"</p>;
+};
+
+const StatisticsContent = () => {
+  return <p>"You wanna get nuts? Let's get nuts!"</p>;
+};
+
+const SettingsContent = () => {
+  return <p>"You wanna get nuts? Let's get nuts!"</p>;
+};
+
+const Modal = ({ setShowModal, type }: ModalProps) => {
+  const [title, setTitle] = useState<string>("test");
+  const [content, setContent] = useState<React.ReactNode>("test");
+
+  useEffect(() => {
+    switch (type) {
+      case "help":
+        setTitle("How To Play");
+        setContent(<HelpContent />);
+        break;
+      case "statistics":
+        setTitle("Statistics");
+        setContent(<StatisticsContent />);
+        break;
+      case "settings":
+        setTitle("Settings");
+        setContent(<SettingsContent />);
+        break;
+    }
+  }, [type]);
 
   return (
-    <ModalOverlay onClick={() => setShowModal(false)} data-testid="modal">
+    <ModalOverlay data-testid="modal">
       <ModalContent>
         <ModalHeader>
           <ModalTitle>{title}</ModalTitle>
-          <CloseButton onClick={() => setShowModal(false)}>x</CloseButton>
+          <CloseButton onClick={() => setShowModal(null)}>x</CloseButton>
         </ModalHeader>
-        {isGameWin && (
-          <p>
-            The answer was <b>{wordleAnswer}</b>
-          </p>
-        )}
-        {isGameWin === false && (
-          <p>
-            The answer was <b>{wordleAnswer}</b>
-          </p>
-        )}
-        {isGameWin === undefined && <p>Game in-progress</p>}
+        {content}
       </ModalContent>
     </ModalOverlay>
   );
