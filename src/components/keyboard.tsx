@@ -91,8 +91,6 @@ const Keyboard = ({ clickHandler, boardState }: KeyboardProps) => {
     });
   });
 
-  console.log(keyStates);
-
   return (
     <KeyboardWrapper>
       {keyboardRows.map((row, index) => (
