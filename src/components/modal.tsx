@@ -75,7 +75,7 @@ const Modal = ({ setShowModal, type }: ModalProps) => {
   }, [type]);
 
   return (
-    <ModalOverlay data-testid="modal">
+    <ModalOverlay data-testid={`${type}-modal`}>
       <ModalContent>
         <ModalHeader>
           <ModalTitle>{title}</ModalTitle>
