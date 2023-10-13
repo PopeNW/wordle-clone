@@ -192,7 +192,7 @@ const App = ({ wordle }: AppProps) => {
         </OptionsWrapper>
       </HeaderWrapper>
       <Board boardState={boardState} />
-      <Keyboard clickHandler={clickHandler} />
+      <Keyboard clickHandler={clickHandler} boardState={boardState} />
       {showModal &&
         createPortal(
           <Modal setShowModal={setShowModal} type={showModal} />,

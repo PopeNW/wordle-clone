@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { keyboardRows } from "../constants";
+import { colours, keyboardRows, TileStatus } from "../constants";
+import { useEffect, useState } from "react";
 
 const KeyboardWrapper = styled.div`
   display: grid;
@@ -10,7 +11,7 @@ const RowWrapper = styled.div`
   justify-content: center;
 `;
 
-const KeyButton = styled.button`
+const KeyButton = styled.button<KeyButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,17 +30,30 @@ const KeyButton = styled.button`
   font-weight: bold;
 
   cursor: pointer;
+
+  ${(props) => {
+    switch (props.keyState) {
+      case TileStatus.CORRECT_SPOT:
+        return `background-color: ${colours.green}; color: ${colours.white};`;
+      case TileStatus.WRONG_SPOT:
+        return `background-color: ${colours.yellow}; color: ${colours.white};`;
+      case TileStatus.NOT_IN_WORD:
+        return `background-color: ${colours.grey}; color: ${colours.white};`;
+      default:
+        return;
+    }
+  }}
 `;
 
-const Key = ({ keyboardKey, clickHandler }: KeyboardKeyProps) => {
+const Key = ({ keyboardKey, clickHandler, keyState }: KeyboardKeyProps) => {
   return (
-    <KeyButton onClick={() => clickHandler(keyboardKey)}>
+    <KeyButton onClick={() => clickHandler(keyboardKey)} keyState={keyState}>
       {keyboardKey}
     </KeyButton>
   );
 };
 
-const Row = ({ keyboardRow, clickHandler }: KeyboardRowProps) => {
+const Row = ({ keyboardRow, clickHandler, keyStates }: KeyboardRowProps) => {
   return (
     <RowWrapper>
       {keyboardRow.map((keyboardKey, index) => (
@@ -47,17 +61,50 @@ const Row = ({ keyboardRow, clickHandler }: KeyboardRowProps) => {
           key={index}
           keyboardKey={keyboardKey}
           clickHandler={clickHandler}
+          keyState={keyStates[keyboardKey]}
         />
       ))}
     </RowWrapper>
   );
 };
 
-const Keyboard = ({ clickHandler }: KeyboardProps) => {
+const Keyboard = ({ clickHandler, boardState }: KeyboardProps) => {
+  const [keyStates, setKeyStates] = useState<KeyStates>({});
+
+  useEffect(() => {
+    boardState.forEach((rowState) => {
+      rowState.forEach((keyState) => {
+        if (!keyState.letter) return;
+        if (!(keyState.letter in keyStates)) {
+          const newKeyStates = {
+            ...keyStates,
+            [keyState.letter]: keyState.status,
+          };
+          setKeyStates(() => newKeyStates);
+        }
+
+        for (const [key, value] of Object.entries(keyStates)) {
+          if (keyState.letter !== key) return;
+          if (keyState.status > value) {
+            const newKeyStates = { ...keyStates, [key]: keyState.status };
+            setKeyStates(() => newKeyStates);
+          }
+        }
+      });
+    });
+  }, [boardState, keyStates]);
+
+  console.log(keyStates);
+
   return (
     <KeyboardWrapper>
       {keyboardRows.map((row, index) => (
-        <Row key={index} keyboardRow={row} clickHandler={clickHandler} />
+        <Row
+          key={index}
+          keyboardRow={row}
+          clickHandler={clickHandler}
+          keyStates={keyStates}
+        />
       ))}
     </KeyboardWrapper>
   );
