@@ -43,16 +43,16 @@ const App = ({ wordle }: AppProps) => {
   const [currentColumn, setCurrentColumn] = useState(0);
   const [showModal, setShowModal] = useState<ModalTypes | null>(null);
   const [gameOver, setGameOver] = useState(false);
+  const [gameOverModalShown, setGameOverModalShown] = useState<boolean>(false);
   const [isGameWin, setIsGameWin] = useState<boolean>();
-
-  useEffect(() => {
-    isGameOver();
-    window.addEventListener("keydown", keyDownHandler);
-    return () => window.removeEventListener("keydown", keyDownHandler);
-  });
 
   const isGameOver = () => {
     if (currentRow === 0) return;
+    if (gameOver && !gameOverModalShown) {
+      setShowModal("statistics");
+      setGameOverModalShown(true);
+      return;
+    }
 
     const lastGuess = boardState[currentRow - 1];
     const isWin =
@@ -170,6 +170,12 @@ const App = ({ wordle }: AppProps) => {
       return newBoardState;
     });
   };
+
+  useEffect(() => {
+    isGameOver();
+    window.addEventListener("keydown", keyDownHandler);
+    return () => window.removeEventListener("keydown", keyDownHandler);
+  });
 
   return (
     <AppWrapper>
