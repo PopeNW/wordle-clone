@@ -69,30 +69,27 @@ const Row = ({ keyboardRow, clickHandler, keyStates }: KeyboardRowProps) => {
 };
 
 const Keyboard = ({ clickHandler, boardState }: KeyboardProps) => {
-  const [keyStates, setKeyStates] = useState<KeyStates>({});
+  let keyStates: KeyStates = {};
 
-  useEffect(() => {
-    boardState.forEach((rowState) => {
-      rowState.forEach((keyState) => {
-        if (!keyState.letter) return;
-        if (!(keyState.letter in keyStates)) {
-          const newKeyStates = {
-            ...keyStates,
-            [keyState.letter]: keyState.status,
-          };
-          setKeyStates(() => newKeyStates);
-        }
+  boardState.forEach((rowState) => {
+    rowState.forEach((keyState) => {
+      if (!keyState.letter) return;
+      if (!(keyState.letter in keyStates)) {
+        keyStates = {
+          ...keyStates,
+          [keyState.letter]: keyState.status,
+        };
+      }
 
-        for (const [key, value] of Object.entries(keyStates)) {
-          if (keyState.letter !== key) return;
+      for (const [key, value] of Object.entries(keyStates)) {
+        if (keyState.letter === key) {
           if (keyState.status > value) {
-            const newKeyStates = { ...keyStates, [key]: keyState.status };
-            setKeyStates(() => newKeyStates);
+            keyStates = { ...keyStates, [key]: keyState.status };
           }
         }
-      });
+      }
     });
-  }, [boardState, keyStates]);
+  });
 
   console.log(keyStates);
 
