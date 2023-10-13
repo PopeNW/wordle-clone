@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { colours, keyboardRows, TileStatus } from "../constants";
-import { useEffect, useState } from "react";
 
 const KeyboardWrapper = styled.div`
   display: grid;
