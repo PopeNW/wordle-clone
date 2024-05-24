@@ -1,3 +1,5 @@
+import { fiveLetterWords } from "../five-letter-words";
+
 const handleAlphabeticalKey = (
   selectedKey: string,
   boardState: BoardState,
@@ -47,8 +49,13 @@ const handleEnterKey = (
   setCurrentColumn: SetNumberState,
 ) => {
   const lastTile = boardState[currentRow].length - 1;
+  const currentGuess = boardState[currentRow].reduce(
+    (currentGuess, tile) => currentGuess + tile.letter,
+    "",
+  );
+  const isValidWord = fiveLetterWords.includes(currentGuess.toLowerCase())
 
-  if (boardState[currentRow][lastTile].letter) {
+  if (boardState[currentRow][lastTile].letter && isValidWord) {
     updateRowState();
     setCurrentRow(currentRow + 1);
     setCurrentColumn(0);
