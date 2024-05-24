@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { colours } from "../constants";
+import batmanJokerGif from "../assets/batman-joker.gif";
 
 const ModalOverlay = styled.dialog`
   display: flex;
@@ -41,16 +42,38 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 
+const BatmanJokerGif = styled.img`
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+`;
+
 const HelpContent = () => {
-  return <p>"You wanna get nuts? Let's get nuts!"</p>;
+  return (
+    <BatmanJokerGif
+      src={batmanJokerGif}
+      alt="You wanna get nuts? Come on! Let's get nuts!"
+    />
+  );
 };
 
 const StatisticsContent = () => {
-  return <p>"You wanna get nuts? Let's get nuts!"</p>;
+  return (
+    <BatmanJokerGif
+      src={batmanJokerGif}
+      alt="You wanna get nuts? Come on! Let's get nuts!"
+    />
+  );
 };
 
 const SettingsContent = () => {
-  return <p>"You wanna get nuts? Let's get nuts!"</p>;
+  return (
+    <BatmanJokerGif
+      src={batmanJokerGif}
+      alt="You wanna get nuts? Come on! Let's get nuts!"
+    />
+  );
 };
 
 const Modal = ({ setShowModal, type }: ModalProps) => {
