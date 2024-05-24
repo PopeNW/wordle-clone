@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createGlobalStyle } from "styled-components";
 import App from "./app";
-import getWordle from "./get-wordle";
+import { fiveLetterWords } from "./five-letter-words";
 import reportWebVitals from "./reportWebVitals";
 
 const GlobalStyle = createGlobalStyle`
@@ -21,13 +21,19 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const wordle =
+  fiveLetterWords[
+    Math.floor(Math.random() * fiveLetterWords.length)
+  ].toUpperCase();
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
+
 root.render(
   <React.StrictMode>
     <GlobalStyle />
-    <App wordle={getWordle()} />
+    <App wordle={wordle} />
   </React.StrictMode>,
 );
 
