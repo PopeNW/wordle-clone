@@ -46,6 +46,7 @@ const App = ({ wordle }: AppProps) => {
   const [gameOver, setGameOver] = useState(false);
   const [gameOverModalShown, setGameOverModalShown] = useState<boolean>(false);
   const [isGameWin, setIsGameWin] = useState<boolean>();
+  const [toastMessage, setToastMessage] = useState<ToastMessage>();
 
   const isGameOver = () => {
     if (currentRow === 0) return;
@@ -88,6 +89,7 @@ const App = ({ wordle }: AppProps) => {
           updateRowState,
           setCurrentRow,
           setCurrentColumn,
+          setToastMessage,
         );
       case "BACKSPACE":
         return handleBackspaceKey(
@@ -178,6 +180,14 @@ const App = ({ wordle }: AppProps) => {
     return () => window.removeEventListener("keydown", keyDownHandler);
   });
 
+  useEffect(() => {
+    if (toastMessage !== undefined) {
+      setTimeout(() => {
+        setToastMessage(undefined);
+      }, 3000);
+    }
+  }, [toastMessage, setToastMessage]);
+
   return (
     <AppWrapper>
       <HeaderWrapper>
@@ -199,11 +209,8 @@ const App = ({ wordle }: AppProps) => {
           <Modal setShowModal={setShowModal} type={showModal} />,
           document.body,
         )}
-      {false &&
-        createPortal(
-          <Toast message={ToastMessage.NotInWordList} />,
-          document.body,
-        )}
+      {toastMessage !== undefined &&
+        createPortal(<Toast message={toastMessage} />, document.body)}
     </AppWrapper>
   );
 };

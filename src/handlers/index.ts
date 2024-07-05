@@ -1,3 +1,4 @@
+import { ToastMessage } from "../components/toast";
 import { fiveLetterWords } from "../five-letter-words";
 
 const handleAlphabeticalKey = (
@@ -47,6 +48,7 @@ const handleEnterKey = (
   updateRowState: VoidFunction,
   setCurrentRow: SetNumberState,
   setCurrentColumn: SetNumberState,
+  setToastMessage: (message: ToastMessage) => void,
 ) => {
   const lastTile = boardState[currentRow].length - 1;
   const currentGuess = boardState[currentRow].reduce(
@@ -56,11 +58,11 @@ const handleEnterKey = (
   const isValidWord = fiveLetterWords.includes(currentGuess.toLowerCase());
 
   if (!boardState[currentRow][lastTile].letter) {
-    console.log("Not enough letters");
+    setToastMessage(ToastMessage.NotEnoughLetters);
   }
 
   if (boardState[currentRow][lastTile].letter && !isValidWord) {
-    console.log("Not in word list");
+    setToastMessage(ToastMessage.NotInWordList);
   }
 
   if (boardState[currentRow][lastTile].letter && isValidWord) {
