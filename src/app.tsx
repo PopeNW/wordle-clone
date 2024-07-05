@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
-import { Board, Keyboard, Modal } from "./components";
+import { Board, Keyboard, Modal, Toast } from "./components";
 import { TileStatus, keyboardRows } from "./constants";
 import {
   handleAlphabeticalKey,
@@ -9,6 +9,7 @@ import {
   handleEnterKey,
 } from "./handlers";
 import { initialiseBoard } from "./utils";
+import { ToastMessage } from "./components/toast";
 
 const AppWrapper = styled.div`
   display: block;
@@ -196,6 +197,11 @@ const App = ({ wordle }: AppProps) => {
       {showModal &&
         createPortal(
           <Modal setShowModal={setShowModal} type={showModal} />,
+          document.body,
+        )}
+      {false &&
+        createPortal(
+          <Toast message={ToastMessage.NotInWordList} />,
           document.body,
         )}
     </AppWrapper>

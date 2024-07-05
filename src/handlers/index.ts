@@ -53,7 +53,15 @@ const handleEnterKey = (
     (currentGuess, tile) => currentGuess + tile.letter,
     "",
   );
-  const isValidWord = fiveLetterWords.includes(currentGuess.toLowerCase())
+  const isValidWord = fiveLetterWords.includes(currentGuess.toLowerCase());
+
+  if (!boardState[currentRow][lastTile].letter) {
+    console.log("Not enough letters");
+  }
+
+  if (boardState[currentRow][lastTile].letter && !isValidWord) {
+    console.log("Not in word list");
+  }
 
   if (boardState[currentRow][lastTile].letter && isValidWord) {
     updateRowState();
