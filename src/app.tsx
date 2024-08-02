@@ -51,7 +51,7 @@ const App = ({ wordle }: AppProps) => {
   const isGameOver = () => {
     if (currentRow === 0) return;
     if (gameOver && !gameOverModalShown) {
-      setShowModal("statistics");
+      setShowModal("game-over");
       setGameOverModalShown(true);
       return;
     }
@@ -206,7 +206,12 @@ const App = ({ wordle }: AppProps) => {
       <Keyboard clickHandler={clickHandler} boardState={boardState} />
       {showModal &&
         createPortal(
-          <Modal setShowModal={setShowModal} type={showModal} />,
+          <Modal
+            setShowModal={setShowModal}
+            type={showModal}
+            wordle={wordle}
+            isGameWin={isGameWin}
+          />,
           document.body,
         )}
       {toastMessage !== undefined &&

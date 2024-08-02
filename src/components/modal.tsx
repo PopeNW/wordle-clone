@@ -76,7 +76,30 @@ const SettingsContent = () => {
   );
 };
 
-const Modal = ({ setShowModal, type }: ModalProps) => {
+const GameOverContent = ({
+  wordle,
+  isGameWin,
+}: {
+  wordle: string;
+  isGameWin: boolean | undefined;
+}) => {
+  const winMessage = "Congratulations!";
+  const loseMessage = "Out of guesses.";
+
+  return (
+    <>
+      <p>
+        {isGameWin ? winMessage : loseMessage} The answer was <b>{wordle}</b>
+      </p>
+      <BatmanJokerGif
+        src={batmanJokerGif}
+        alt="You wanna get nuts? Come on! Let's get nuts!"
+      />
+    </>
+  );
+};
+
+const Modal = ({ setShowModal, type, wordle, isGameWin }: ModalProps) => {
   const [title, setTitle] = useState<string>("test");
   const [content, setContent] = useState<React.ReactNode>("test");
 
@@ -94,8 +117,12 @@ const Modal = ({ setShowModal, type }: ModalProps) => {
         setTitle("Settings");
         setContent(<SettingsContent />);
         break;
+      case "game-over":
+        setTitle("Game Over");
+        setContent(<GameOverContent wordle={wordle} isGameWin={isGameWin} />);
+        break;
     }
-  }, [type]);
+  }, [isGameWin, type, wordle]);
 
   return (
     <ModalOverlay data-testid={`${type}-modal`}>
